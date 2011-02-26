@@ -1,0 +1,140 @@
+package it.polito.dbpedia;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+public class DbPediaURIRetriever {
+	
+	private Logger logger = new IgnoreLogger();
+	
+	private DocumentParser documentParser = null;
+	
+	public DbPediaURIRetriever(DocumentParser documentParser) {
+		this.documentParser = documentParser;
+	}
+	
+	private static final String WS_URI = "http://lod.openlinksw.com/fct/service";
+	private static String NEWLINE = System.getProperty("line.separator");
+
+	private String createOpenLinkQueryDoc(String text) {
+		StringBuffer doc = new StringBuffer();
+		doc.append("<?xml version=\"1.0\"?>");
+		doc
+				.append("<query xmlns=\"http://openlinksw.com/services/facets/1.0\" inference=\"\" same-as=\"\">");
+		doc.append("  <text>" + text + "</text>");
+		doc.append("<view type=\"text\" limit=\"20\" offset=\"\"/>");
+		doc.append("</query>");
+		return doc.toString();
+	}
+	
+	private Document getOpenLinkResponse(String queryDoc) throws IOException, UnvalidResponseException{
+		URL url = new URL(WS_URI);
+		URLConnection conn = url.openConnection();
+		logger.log(".conn open");
+		conn.setDoOutput(true);
+		conn.setRequestProperty("Content-Type", "text/xml");
+		OutputStreamWriter wr = new OutputStreamWriter(conn
+				.getOutputStream());
+		wr.write(queryDoc);
+		wr.flush();
+		
+		BufferedReader rd = new BufferedReader(new InputStreamReader(conn
+				.getInputStream()));
+		logger.log(".resp obtained");
+		StringBuffer responseBuffer = new StringBuffer();
+		String line;
+		while ((line = rd.readLine()) != null) {
+			//System.out.println(line);
+			responseBuffer.append(line);
+			responseBuffer.append(NEWLINE);
+		}
+		wr.close();
+		rd.close();
+		logger.log(".done");
+		try {
+			return documentParser.parse(responseBuffer.toString());
+		} catch (SAXException e) {
+			throw new UnvalidResponseException("Response is not a valid XML file",e);
+		}
+	}
+	
+	private static final String RESPONSE_ROOT_NODE_NAME = "fct:facets";
+	private static final String RESPONSE_FCT_RESULT_NODE_NAME = "fct:result";
+	private static final String RESPONSE_FCT_ROW_NODE_NAME = "fct:row";
+	private static final String RESPONSE_FCT_COLUMN_NODE_NAME = "fct:column";
+	private static final String RESPONSE_DATATYPE_ATTR = "datatype";
+	private static final String RESPONSE_DATATYPE_VALUE_URL = "url";
+	
+	private String[] getURIs(Document openLinkResponse) throws UnvalidResponseException{
+		List<String> uris = new LinkedList<String>();
+		NodeList children = openLinkResponse.getChildNodes();
+		if (children.getLength()!=1) throw new UnvalidResponseException("One root expected");
+		Node root = children.item(0);
+		if (!root.getNodeName().equals(RESPONSE_ROOT_NODE_NAME)) throw new UnvalidResponseException("Root <"+RESPONSE_ROOT_NODE_NAME+"> expected");
+		
+		children = root.getChildNodes();
+		Node result = null;
+		for (int ni=0;ni<children.getLength();ni++){
+			Node child = children.item(ni);
+			if (child.getNodeName().equals(RESPONSE_FCT_RESULT_NODE_NAME)){
+				if (result != null){
+					throw new UnvalidResponseException("More than one <"+RESPONSE_FCT_RESULT_NODE_NAME+"> found");
+				}
+				result = child;
+			}
+		}		
+		if (result==null) throw new UnvalidResponseException("No <"+RESPONSE_FCT_RESULT_NODE_NAME+"> found");
+		
+		children = result.getChildNodes();
+		List<Node> rows = new LinkedList<Node>();
+		for (int ni=0;ni<children.getLength();ni++){
+			Node child = children.item(ni);
+			if (child.getNodeName().equals(RESPONSE_FCT_ROW_NODE_NAME)){
+				rows.add(child);
+			}
+		}
+		
+		for (Node row : rows){
+			uris.add(getUriFromRow(row));
+		}
+		
+		return uris.toArray(new String[]{});
+	}
+
+	private String getUriFromRow(Node row) throws UnvalidResponseException {
+		NodeList children = row.getChildNodes();
+		String result = null;
+		for (int ni=0;ni<children.getLength();ni++){
+			Node column = children.item(ni);
+			if (column.getNodeName().equals(RESPONSE_FCT_COLUMN_NODE_NAME)){
+				Node datatypeAttr = column.getAttributes().getNamedItem(RESPONSE_DATATYPE_ATTR);
+				if (datatypeAttr!=null && datatypeAttr.getNodeValue().equals(RESPONSE_DATATYPE_VALUE_URL)){
+					if (result!=null){
+						throw new UnvalidResponseException("A <"+RESPONSE_FCT_ROW_NODE_NAME+"> has more than one column with URL datatype");
+					}
+					result = column.getTextContent();
+					
+				}
+			}
+		}
+		if (result==null) throw new UnvalidResponseException("A <"+RESPONSE_FCT_ROW_NODE_NAME+"> has not a column with URL datatype");
+		System.out.println("{"+result+"}");
+		return result;
+	}
+	
+	public String[] retrivePossibileURIs(String text) throws IOException, UnvalidResponseException {
+		Document openLinkResponse = getOpenLinkResponse(createOpenLinkQueryDoc(text));
+		return getURIs(openLinkResponse);
+	}
+}
