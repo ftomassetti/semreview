@@ -1,18 +1,17 @@
 package it.polito.semreview.dbpedia;
 
-import it.polito.semreview.utils.ConsoleLogger;
-import it.polito.semreview.utils.Logger;
-import it.polito.semreview.utils.Pair;
+import it.polito.softeng.common.Pair;
 
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
 public class DbPediaFacadeImpl implements DbPediaFacade {
 
-	private Logger logger = new ConsoleLogger();
+	private Logger logger = Logger.getLogger(DbPediaFacadeImpl.class);
 
 	@Override
 	public String retrieveAbstract(String keyphrase)
@@ -49,7 +48,7 @@ public class DbPediaFacadeImpl implements DbPediaFacade {
 			if (null == maxURI)
 				throw new NoResourceFoundException(keyphrase);
 
-			logger.log("URI chosen for keyphrase '" + keyphrase + "' is '"
+			logger.debug("URI chosen for keyphrase '" + keyphrase + "' is '"
 					+ maxURI + "'");
 
 			Document definition = definitionRetriever

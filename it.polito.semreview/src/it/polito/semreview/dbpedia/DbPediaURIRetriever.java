@@ -1,8 +1,6 @@
 package it.polito.semreview.dbpedia;
 
-import it.polito.semreview.utils.ConsoleLogger;
-import it.polito.semreview.utils.Logger;
-import it.polito.semreview.utils.Pair;
+import it.polito.softeng.common.Pair;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,6 +11,7 @@ import java.net.URLConnection;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -22,7 +21,7 @@ public class DbPediaURIRetriever {
 
 	public static final String DBPEDIA_RESOURCE_URI = "http://dbpedia.org/resource/";
 
-	private Logger logger = new ConsoleLogger();
+	private Logger logger = Logger.getLogger(DbPediaURIRetriever.class);
 
 	private DocumentParser documentParser = null;
 
@@ -51,7 +50,7 @@ public class DbPediaURIRetriever {
 			UnvalidResponseException {
 		URL url = new URL(WS_URI);
 		URLConnection conn = url.openConnection();
-		logger.log(".conn open");
+		logger.debug(".conn open");
 		conn.setDoOutput(true);
 		conn.setRequestProperty("Content-Type", "text/xml");
 		OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -60,7 +59,7 @@ public class DbPediaURIRetriever {
 
 		BufferedReader rd = new BufferedReader(new InputStreamReader(
 				conn.getInputStream()));
-		logger.log(".resp obtained");
+		logger.debug(".resp obtained");
 		StringBuffer responseBuffer = new StringBuffer();
 		String line;
 		while ((line = rd.readLine()) != null) {
@@ -70,7 +69,7 @@ public class DbPediaURIRetriever {
 		}
 		wr.close();
 		rd.close();
-		logger.log(".done");
+		logger.debug(".done");
 		try {
 			return documentParser.parse(responseBuffer.toString());
 		} catch (SAXException e) {

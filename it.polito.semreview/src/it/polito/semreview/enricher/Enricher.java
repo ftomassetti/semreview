@@ -29,9 +29,9 @@ import it.polito.semreview.dbpedia.UnvalidDefinitionException;
 import it.polito.semreview.dbpedia.UnvalidResponseException;
 import it.polito.semreview.opencalais.DummyKeyPhrasesProvider;
 import it.polito.semreview.opencalais.KeyPhrasesProvider;
-import it.polito.semreview.utils.Pair;
 import it.polito.semreview.utils.filesystem.FileNameExtensionFilter;
 import it.polito.semreview.utils.filesystem.FileUtils;
+import it.polito.softeng.common.Pair;
 
 import java.io.File;
 import java.io.IOException;

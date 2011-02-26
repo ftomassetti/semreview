@@ -1,9 +1,9 @@
 package it.polito.semreview.opencalais;
 
 import it.polito.semreview.enricher.Enricher;
-import it.polito.semreview.utils.Pair;
 import it.polito.semreview.utils.filesystem.FileNameExtensionFilter;
 import it.polito.semreview.utils.filesystem.FileUtils;
+import it.polito.softeng.common.Pair;
 
 import java.io.File;
 import java.io.IOException;

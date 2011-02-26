@@ -1,6 +1,6 @@
 package it.polito.semreview.opencalais;
 
-import it.polito.semreview.utils.Pair;
+import it.polito.softeng.common.Pair;
 
 import java.io.StringReader;
 import java.util.LinkedList;
