@@ -41,7 +41,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 
-public class Enricher {
+public class EnricherProgram {
 
 	public static final String DATASET_PATH = "dataset";
 	public static final String DATAFILE_EXTENSION = "a";
@@ -52,7 +52,7 @@ public class Enricher {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Enricher enricher = new Enricher();
+		EnricherProgram enricher = new EnricherProgram();
 		enricher.enrich();
 	}
 

@@ -1,0 +1,5 @@
+DataSetProvider: procura i paper
+
+PaperEnricher: prende un paper e lo arricchisce
+
+Classifier: calcola la somiglianza col modello 

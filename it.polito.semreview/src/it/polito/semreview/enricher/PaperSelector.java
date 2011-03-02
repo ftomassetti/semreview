@@ -62,7 +62,7 @@ public class PaperSelector {
 		String text = "";
 
 		for (File kpFile : FileUtils.listFile(new File("dataset"),
-				new FileNameExtensionFilter(Enricher.KEYPHRASES_EXTENSION),
+				new FileNameExtensionFilter(EnricherProgram.KEYPHRASES_EXTENSION),
 				true)) {
 			BufferedReader reader;
 			System.out.println("Working on " + kpFile.getName());
@@ -129,13 +129,13 @@ public class PaperSelector {
 	private static void enrich(File kpFile, Set<String> abstracts)
 			throws IOException {
 		File aFile = FileUtils.changeExtensionTo(kpFile,
-				Enricher.DATAFILE_EXTENSION);
+				EnricherProgram.DATAFILE_EXTENSION);
 		String text = FileUtils.readFile(aFile);
 		for (String abs : abstracts) {
 			text += "\n\n" + abs;
 		}
 		File apFile = FileUtils.changeExtensionTo(kpFile,
-				Enricher.ENRICHED_EXTENSION);
+				EnricherProgram.ENRICHED_EXTENSION);
 		FileUtils.saveFile(apFile, text);
 	}
 

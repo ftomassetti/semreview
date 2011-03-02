@@ -3,7 +3,7 @@ package it.polito.semreview.experiment;
 import it.polito.semreview.classifiers.ClassificationException;
 import it.polito.semreview.classifiers.KnowledgeBase;
 import it.polito.semreview.classifiers.NaiveBayes;
-import it.polito.semreview.enricher.Enricher;
+import it.polito.semreview.enricher.EnricherProgram;
 import it.polito.semreview.utils.Sweeper;
 import it.polito.semreview.utils.filesystem.FileNameExtensionFilter;
 import it.polito.semreview.utils.filesystem.FileUtils;
@@ -98,7 +98,7 @@ public class Experiment {
 
 	public Paper getNotEnrichedPaper(String paperTitle) throws IOException {
 		String fileName = "dataset/" + paperTitle + "."
-				+ Enricher.DATAFILE_EXTENSION;
+				+ EnricherProgram.DATAFILE_EXTENSION;
 		String text = FileUtils.readFile(new File(fileName));
 		return new Paper(paperTitle, text);
 	}
@@ -289,8 +289,8 @@ public class Experiment {
 					+ (desiredEnrichable ? "" : "NOT ") + "enrichable and "
 					+ (desiredInteresting ? "" : "NOT ") + "interesting]");
 
-		String extension = enriched ? Enricher.ENRICHED_EXTENSION
-				: Enricher.DATAFILE_EXTENSION;
+		String extension = enriched ? EnricherProgram.ENRICHED_EXTENSION
+				: EnricherProgram.DATAFILE_EXTENSION;
 
 		List<Paper> selectedPapers = new LinkedList<Paper>();
 
