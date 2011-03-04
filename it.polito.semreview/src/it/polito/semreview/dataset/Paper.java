@@ -6,4 +6,5 @@ public interface Paper {
 	String getAbstract();
 	String getIntroduction();
 	String getConclusions();
+	String collateText();
 }

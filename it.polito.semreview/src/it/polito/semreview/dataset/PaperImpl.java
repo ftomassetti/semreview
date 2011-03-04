@@ -33,6 +33,17 @@ public class PaperImpl implements Paper {
 	public PaperId getId() {
 		return paperId;
 	}
+	@Override
+	public String collateText() {
+		StringBuffer buffer = new StringBuffer();
+		
+		buffer.append(title);
+		buffer.append(abstract_);
+		buffer.append(introduction);
+		buffer.append(conclusions);
+		
+		return buffer.toString();
+	}
 
 
 }

@@ -1,4 +1,4 @@
-package it.polito.semreview.opencalais;
+package it.polito.semreview.enrichment.keyphrasesextraction.opencalais;
 
 import java.rmi.RemoteException;
 

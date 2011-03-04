@@ -1,4 +1,4 @@
-package it.polito.semreview.enricher;
+package it.polito.semreview;
 
 import it.polito.semreview.utils.CsvUtils;
 import it.polito.semreview.utils.filesystem.FileNameExtensionFilter;
@@ -16,7 +16,7 @@ import java.util.Set;
 
 import com.csvreader.CsvReader;
 
-public class PaperSelector {
+public class PaperSelectorProgram {
 
 	/**
 	 * @param args

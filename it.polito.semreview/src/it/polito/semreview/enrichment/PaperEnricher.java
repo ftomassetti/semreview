@@ -1,4 +1,4 @@
-package it.polito.semreview.enricher;
+package it.polito.semreview.enrichment;
 
 import it.polito.semreview.dataset.Paper;
 

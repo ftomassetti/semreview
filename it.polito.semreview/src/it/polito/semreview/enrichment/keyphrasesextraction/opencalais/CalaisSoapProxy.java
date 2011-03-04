@@ -1,4 +1,4 @@
-package it.polito.semreview.opencalais;
+package it.polito.semreview.enrichment.keyphrasesextraction.opencalais;
 
 public class CalaisSoapProxy implements CalaisSoap {
 	private String _endpoint = null;

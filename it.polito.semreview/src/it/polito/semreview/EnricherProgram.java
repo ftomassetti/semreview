@@ -20,15 +20,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package it.polito.semreview.enricher;
+package it.polito.semreview;
 
 import it.polito.semreview.dbpedia.DbPediaFacade;
 import it.polito.semreview.dbpedia.DbPediaFacadeImpl;
 import it.polito.semreview.dbpedia.NoResourceFoundException;
 import it.polito.semreview.dbpedia.UnvalidDefinitionException;
 import it.polito.semreview.dbpedia.UnvalidResponseException;
-import it.polito.semreview.opencalais.DummyKeyPhrasesProvider;
-import it.polito.semreview.opencalais.KeyPhrasesProvider;
+import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.OpenCalaisKeyPhrasesProvider;
+import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.KeyPhrasesProvider;
 import it.polito.semreview.utils.filesystem.FileNameExtensionFilter;
 import it.polito.semreview.utils.filesystem.FileUtils;
 import it.polito.softeng.common.Pair;
@@ -57,7 +57,7 @@ public class EnricherProgram {
 	}
 
 	public KeyPhrasesProvider getKeyPhrasesProvider() {
-		return new DummyKeyPhrasesProvider();
+		return new OpenCalaisKeyPhrasesProvider();
 	}
 
 	public double getKeyPhrasesThreshold() {

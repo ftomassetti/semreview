@@ -5,7 +5,7 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package it.polito.semreview.opencalais;
+package it.polito.semreview.enrichment.keyphrasesextraction.opencalais;
 
 public class CalaisSoapSoapBindingStub extends org.apache.axis.client.Stub
 		implements CalaisSoap {

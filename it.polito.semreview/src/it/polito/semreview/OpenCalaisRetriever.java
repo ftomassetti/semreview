@@ -1,6 +1,8 @@
-package it.polito.semreview.opencalais;
+package it.polito.semreview;
 
-import it.polito.semreview.enricher.EnricherProgram;
+import it.polito.semreview.enrichment.EnricherProgram;
+import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.OpenCalaisKeyPhrasesProvider;
+import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.KeyPhrasesProvider;
 import it.polito.semreview.utils.filesystem.FileNameExtensionFilter;
 import it.polito.semreview.utils.filesystem.FileUtils;
 import it.polito.softeng.common.Pair;
@@ -14,7 +16,7 @@ import java.util.Set;
 public class OpenCalaisRetriever {
 
 	public static void main(String[] args) {
-		KeyPhrasesProvider keyPhrasesProvider = new DummyKeyPhrasesProvider();
+		KeyPhrasesProvider keyPhrasesProvider = new OpenCalaisKeyPhrasesProvider();
 
 		File dir = new File(EnricherProgram.DATASET_PATH);
 		List<File> files = FileUtils.listFile(dir, new FileNameExtensionFilter(

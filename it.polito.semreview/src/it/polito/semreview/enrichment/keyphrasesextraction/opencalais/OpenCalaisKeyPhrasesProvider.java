@@ -1,31 +1,37 @@
-package it.polito.semreview.opencalais;
+package it.polito.semreview.enrichment.keyphrasesextraction.opencalais;
 
+import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
+import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhraseImpl;
+import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrasesExtractor;
 import it.polito.softeng.common.Pair;
 
 import java.io.StringReader;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-public class DummyKeyPhrasesProvider implements KeyPhrasesProvider {
+public class OpenCalaisKeyPhrasesProvider implements KeyPhrasesExtractor<String> {
+	
+	private static Logger logger = Logger.getLogger(OpenCalaisKeyPhrasesProvider.class);
 
-	public List<Pair<String, Double>> calculateKeyPhrases(String text) {
-		List<Pair<String, Double>> list = new LinkedList<Pair<String, Double>>();
+	public Set<Pair<KeyPhrase, Double>> getKeyPhrases(String text) {
+		Set<Pair<KeyPhrase, Double>> keyPhrases = new HashSet<Pair<KeyPhrase, Double>>();
 		String xml = null;
 		xml = OpenCalais.run(text);
 		String keyword = null;
 		String relevance = null;
 		if (xml != null) {
 			String xmlOk = "<?xml version=\"1.0\"?>\n" + xml;
-			System.out.println(xmlOk);
+			logger.debug(xmlOk);
 			try {
 				DocumentBuilderFactory dbf = DocumentBuilderFactory
 						.newInstance();
@@ -33,24 +39,24 @@ public class DummyKeyPhrasesProvider implements KeyPhrasesProvider {
 				InputSource is = new InputSource(new StringReader(xmlOk));
 				Document doc = db.parse(is);
 				doc.getDocumentElement().normalize();
-				System.out.println("Root element "
+				logger.debug("Root element "
 						+ doc.getDocumentElement().getNodeName());
 				NodeList openCalaisSimpleList = doc
 						.getElementsByTagName("OpenCalaisSimple");
-				System.out.println("---------");
+				logger.debug("---------");
 				Node openCalaisSimpleNode = openCalaisSimpleList.item(0);
 				Element openCalaisSimple = (Element) openCalaisSimpleNode;
 				NodeList calaisSimpleOutputFormatList = openCalaisSimple
 						.getElementsByTagName("CalaisSimpleOutputFormat");
 				Element calaisSimpleOutputFormatElement = (Element) calaisSimpleOutputFormatList
 						.item(0);
-				System.out.println("Node Name : "
+				logger.debug("Node Name : "
 						+ calaisSimpleOutputFormatElement.getNodeName());
 				NodeList SocialTagsList = calaisSimpleOutputFormatElement
 						.getElementsByTagName("SocialTags");
 				Element socialTags = (Element) SocialTagsList.item(0);
-				System.out.println("---------");
-				System.out.println("Node Name : " + socialTags.getNodeName());
+				logger.debug("---------");
+				logger.debug("Node Name : " + socialTags.getNodeName());
 				NodeList socialTagsNode = socialTags.getChildNodes();
 				for (int s = 0; s < socialTagsNode.getLength(); s++) {
 					Node fstNode = socialTagsNode.item(s);
@@ -62,15 +68,15 @@ public class DummyKeyPhrasesProvider implements KeyPhrasesProvider {
 						keyword = socialtag.getNodeValue();
 						relevance = attr.getNodeValue();
 					}
-					System.out.println("Keyword = " + keyword + " Relevance: "
+					logger.debug("Keyword = " + keyword + " Relevance: "
 							+ relevance);
-					list.add(new Pair(keyword, Double.parseDouble(relevance)));
+					keyPhrases.add(new Pair<KeyPhrase,Double>(new KeyPhraseImpl(keyword), Double.parseDouble(relevance)));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return list;
+		return keyPhrases;
 	}
 
 }
