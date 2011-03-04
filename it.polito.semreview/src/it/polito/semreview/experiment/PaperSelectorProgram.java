@@ -1,4 +1,4 @@
-package it.polito.semreview;
+package it.polito.semreview.experiment;
 
 import it.polito.semreview.utils.CsvUtils;
 import it.polito.semreview.utils.filesystem.FileNameExtensionFilter;

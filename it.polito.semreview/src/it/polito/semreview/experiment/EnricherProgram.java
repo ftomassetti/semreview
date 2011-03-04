@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package it.polito.semreview;
+package it.polito.semreview.experiment;
 
 import it.polito.semreview.dbpedia.DbPediaFacade;
 import it.polito.semreview.dbpedia.DbPediaFacadeImpl;

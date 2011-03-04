@@ -1,11 +1,9 @@
-package it.polito.semreview;
+package it.polito.semreview.experiment;
 
 import it.polito.semreview.classifiers.ClassificationException;
 import it.polito.semreview.classifiers.KnowledgeBase;
 import it.polito.semreview.classifiers.NaiveBayes;
 import it.polito.semreview.dataset.Paper;
-import it.polito.semreview.experiment.AlgorithmResult;
-import it.polito.semreview.experiment.DataSetMap;
 import it.polito.semreview.utils.Sweeper;
 import it.polito.semreview.utils.filesystem.FileNameExtensionFilter;
 import it.polito.semreview.utils.filesystem.FileUtils;
