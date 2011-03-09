@@ -6,7 +6,7 @@ import java.util.Hashtable;
  * @author Luca Ardito
  * @author Giuseppe Rizzo
  * @author Federico Tomassetti
- * @author Antonio Vetrò
+ * @author Antonio Vetro'
  */
 public class NaiveBayes {
 
@@ -17,15 +17,20 @@ public class NaiveBayes {
 		return (numberofset >= 2) ? binary(sample, kb) : multiclass(sample, kb);
 	}
 
-	/******************
-	 * NAIVE BAYES FORMULA ************************ * * P(ci) * PROD{ P(wj|ci) }
-	 * * P(ci|D) = ---------------------------------- * P(D) * * Likelihood a
-	 * prior = Likelihood's class i * production on * each word given class i
-	 * (occurrencies'number of word j in * a given class i) divided by
-	 * probability of document (we * can interpret this how a mail's likelihood
-	 * into dataset) * * *
-	 ***************************************************************/
-
+    /****************** NAIVE BAYES FORMULA ************************
+     *                                                             *
+     *                                                             *
+     *                      P(ci) * PROD{ P(wj|ci) }               *
+     *      P(ci|D) =  ----------------------------------          *
+     *                              P(D)                           *
+     *                                                             *
+     *   Likelihood a prior = Likelihood's class i * production on *
+     *   each word given class i (occurrencies'number of word j in *
+     *   a given class i) divided by probability of document (we   *
+     *   can interpret this how a mail's likelihood into dataset)  *             
+     *                                                             *
+     *                                                             *   
+     ***************************************************************/
 	private static Hashtable<String, Double> multiclass(String sample,
 			KnowledgeBase kb) {
 		// we build a weighted bagofwords
@@ -51,7 +56,13 @@ public class NaiveBayes {
 					oC += category.getDictionary().get(word);
 
 			if (oC != 0) {
-				double pwi_ci = Math.log(oC / (1.0 * category.getTotalWords()));
+
+				// double pwi_ci = Math.log(oC / (1.0 * category.getTotalWords()));
+
+				// we apply smoth
+				double pwi_ci = Math.log( (oC + 1) / 
+										  (1.0 * category.getTotalWords() + kb.getTotalWords()) 
+										);
 				double pci = Math.log(category.getTotalWords()
 						/ (1.0 * kb.getTotalWords()));
 				score.put(category.getLabelName(), Math.exp(pwi_ci + pci));
@@ -107,7 +118,8 @@ public class NaiveBayes {
 			p_e = (oE != 0) ? oE / (1.0 * (kb.getTotalWords() - tI))
 					: 1 / (1.0 * (kb.getTotalWords() - tI));
 
-			score.put(i.getLabelName(), new Double(p_i / 1.0 * (p_i + p_e)));
+			double pClassGivenDoc = (p_i + 1 ) / ( 1.0 * (p_i + p_e) + kb.getTotalWords() );
+			score.put(i.getLabelName(), new Double(pClassGivenDoc));
 		}
 
 		return score;
