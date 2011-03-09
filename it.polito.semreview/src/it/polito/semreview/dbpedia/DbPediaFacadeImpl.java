@@ -1,5 +1,7 @@
 package it.polito.semreview.dbpedia;
 
+import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
+import it.polito.semreview.resourcelookup.ResourceRetriever;
 import it.polito.softeng.common.Pair;
 
 import java.io.IOException;
@@ -9,7 +11,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
-public class DbPediaFacadeImpl implements DbPediaFacade {
+public class DbPediaFacadeImpl implements DbPediaFacade, ResourceRetriever {
 
 	private Logger logger = Logger.getLogger(DbPediaFacadeImpl.class);
 
@@ -54,6 +56,23 @@ public class DbPediaFacadeImpl implements DbPediaFacade {
 			Document definition = definitionRetriever
 					.retrieveDefinition(maxURI);
 			return DefinitionAnalyzer.getAbstract(maxURI, definition);
+		}
+	}
+
+	@Override
+	public String getDefinitionText(KeyPhrase keyPhrase) throws IOException {
+		try {
+			return retrieveAbstract(keyPhrase.text());
+		} catch (NoResourceFoundException e) {
+			throw new IOException(e);
+		} catch (ParserConfigurationException e) {
+			throw new IOException(e);
+		} catch (IOException e) {
+			throw new IOException(e);
+		} catch (UnvalidResponseException e) {
+			throw new IOException(e);
+		} catch (UnvalidDefinitionException e) {
+			throw new IOException(e);
 		}
 	}
 

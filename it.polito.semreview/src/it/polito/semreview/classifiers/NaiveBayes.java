@@ -8,7 +8,7 @@ import java.util.Hashtable;
  * @author Federico Tomassetti
  * @author Antonio Vetro'
  */
-public class NaiveBayes {
+public class NaiveBayes implements Classifier {
 
 	public static Hashtable<String, Double> estimate(String sample,
 			KnowledgeBase kb) throws ClassificationException {
@@ -123,5 +123,10 @@ public class NaiveBayes {
 		}
 
 		return score;
+	}
+
+	@Override
+	public float getAffinity(KnowledgeBase knowledgeBase, String enrichedText) {
+		throw new UnsupportedOperationException("This method should be implemented");
 	}
 }

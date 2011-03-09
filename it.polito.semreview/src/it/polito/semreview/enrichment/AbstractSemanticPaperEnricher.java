@@ -6,6 +6,7 @@ import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrasesExtractor;
 import it.polito.semreview.resourcelookup.ResourceRetriever;
 import it.polito.softeng.common.Pair;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,7 +26,7 @@ public abstract class AbstractSemanticPaperEnricher implements PaperEnricher {
 	}
 
 	@Override
-	public String getEnrichedText(Paper paper) {
+	public String getEnrichedText(Paper paper) throws IOException {
 		Set<Pair<String, Double>> resourceAbstracts = new HashSet<Pair<String, Double>>();
 		for (Pair<KeyPhrase, Double> keyPhrase : keyPhrasesExtractor
 				.getKeyPhrases(paper)) {

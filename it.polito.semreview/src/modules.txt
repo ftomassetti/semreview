@@ -1,5 +1,10 @@
-DataSetProvider: procura i paper
+The system is mainly a pipeline:
 
-PaperEnricher: prende un paper e lo arricchisce
+1) DataSetProvider: 
+	the first stage provide the papers
+	
+2) PaperEnricher: 
+	the second stage enrich the papers
 
-Classifier: calcola la somiglianza col modello 
+3) Classifier:
+	the third stage compare enricheded papers to the model 
