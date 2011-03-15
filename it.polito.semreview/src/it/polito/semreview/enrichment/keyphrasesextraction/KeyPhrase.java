@@ -1,5 +1,7 @@
 package it.polito.semreview.enrichment.keyphrasesextraction;
 
-public interface KeyPhrase {
+import java.io.Serializable;
+
+public interface KeyPhrase extends Serializable {
 	String text();
 }
