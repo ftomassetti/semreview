@@ -60,7 +60,7 @@ public class DbPediaFacadeImpl implements DbPediaFacade, ResourceRetriever {
 	}
 
 	@Override
-	public String getDefinitionText(KeyPhrase keyPhrase) throws IOException {
+	public String getDefinitionText(KeyPhrase keyPhrase) throws IOException, UnvalidDefinitionException {
 		try {
 			return retrieveAbstract(keyPhrase.text());
 		} catch (NoResourceFoundException e) {
@@ -70,8 +70,6 @@ public class DbPediaFacadeImpl implements DbPediaFacade, ResourceRetriever {
 		} catch (IOException e) {
 			throw new IOException(e);
 		} catch (UnvalidResponseException e) {
-			throw new IOException(e);
-		} catch (UnvalidDefinitionException e) {
 			throw new IOException(e);
 		}
 	}

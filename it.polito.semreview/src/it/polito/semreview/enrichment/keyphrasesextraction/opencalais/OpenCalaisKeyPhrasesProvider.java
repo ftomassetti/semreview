@@ -5,13 +5,18 @@ import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhraseImpl;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrasesExtractor;
 import it.polito.softeng.common.Pair;
 
+import java.beans.Encoder;
 import java.io.StringReader;
+import java.rmi.RemoteException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.rpc.ServiceException;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,14 +24,25 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-public class OpenCalaisKeyPhrasesProvider implements KeyPhrasesExtractor<String> {
-	
-	private static Logger logger = Logger.getLogger(OpenCalaisKeyPhrasesProvider.class);
+public class OpenCalaisKeyPhrasesProvider implements
+		KeyPhrasesExtractor<String> {
 
-	public Set<Pair<KeyPhrase, Double>> getKeyPhrases(String text) {
-		Set<Pair<KeyPhrase, Double>> keyPhrases = new HashSet<Pair<KeyPhrase, Double>>();
+	private static Logger logger = Logger
+			.getLogger(OpenCalaisKeyPhrasesProvider.class);
+
+	public HashSet<Pair<KeyPhrase, Double>> getKeyPhrases(String text) {
+		HashSet<Pair<KeyPhrase, Double>> keyPhrases = new HashSet<Pair<KeyPhrase, Double>>();
 		String xml = null;
-		xml = OpenCalais.run(text);
+		// Charset csets = Charset.forName("UTF-8");
+		try {
+			text = text.replaceAll("[^a-zA-Z0-9]", " ");
+			//System.out.println("\n\n\n\n\n"+text+"\n\n\n\n\n\n\n\n");
+			xml = OpenCalais.run(text);
+		} catch (RemoteException e1) {
+			throw new RuntimeException(e1);
+		} catch (ServiceException e1) {
+			throw new RuntimeException(e1);
+		}
 		String keyword = null;
 		String relevance = null;
 		if (xml != null) {
@@ -54,23 +70,30 @@ public class OpenCalaisKeyPhrasesProvider implements KeyPhrasesExtractor<String>
 						+ calaisSimpleOutputFormatElement.getNodeName());
 				NodeList SocialTagsList = calaisSimpleOutputFormatElement
 						.getElementsByTagName("SocialTags");
-				Element socialTags = (Element) SocialTagsList.item(0);
-				logger.debug("---------");
-				logger.debug("Node Name : " + socialTags.getNodeName());
-				NodeList socialTagsNode = socialTags.getChildNodes();
-				for (int s = 0; s < socialTagsNode.getLength(); s++) {
-					Node fstNode = socialTagsNode.item(s);
-					NodeList fstNm = fstNode.getChildNodes();
-					Node socialtag = (Node) fstNm.item(0);
-					if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
-						Node attr = fstNode.getAttributes().getNamedItem(
-								"importance");
-						keyword = socialtag.getNodeValue();
-						relevance = attr.getNodeValue();
+				if (SocialTagsList.getLength() == 0) {
+					// No node SocialTags
+				} else {
+					Element socialTags = (Element) SocialTagsList.item(0);
+					logger.debug("---------");
+					logger.debug("Node Name : " + socialTags.getNodeName());
+					NodeList socialTagsNode = socialTags.getChildNodes();
+					logger.debug("N SOCIAL TAGS "+socialTagsNode.getLength());
+					for (int s = 0; s < socialTagsNode.getLength(); s++) {
+						Node fstNode = socialTagsNode.item(s);
+						NodeList fstNm = fstNode.getChildNodes();
+						Node socialtag = (Node) fstNm.item(0);
+						if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
+							Node attr = fstNode.getAttributes().getNamedItem(
+									"importance");
+							keyword = socialtag.getNodeValue();
+							relevance = attr.getNodeValue();
+						}
+						logger.debug("Keyword = " + keyword + " Relevance: "
+								+ relevance);
+						keyPhrases.add(new Pair<KeyPhrase, Double>(
+								new KeyPhraseImpl(keyword), Double
+										.parseDouble(relevance)));
 					}
-					logger.debug("Keyword = " + keyword + " Relevance: "
-							+ relevance);
-					keyPhrases.add(new Pair<KeyPhrase,Double>(new KeyPhraseImpl(keyword), Double.parseDouble(relevance)));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

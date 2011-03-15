@@ -8,6 +8,10 @@ import java.io.File;
 import java.io.Serializable;
 
 public class OperationCaching {
+	
+	private OperationCaching(){
+		
+	}
 
 	public static <I extends Serializable, J extends I> I get(Operation<I> operation, File file, Class<J> clazz) throws LoadingException, StoringException{
 		if (file.exists()){
