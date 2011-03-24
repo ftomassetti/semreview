@@ -138,11 +138,17 @@ public class ClassifierBatchStorer {
 
 	private static final Logger logger = Logger
 			.getLogger(ClassifierBatchStorer.class);
-
-	public void algorithm(float threshold, File resultFile) throws IOException,
-			LoadingException {		
+	
+	public void algorithm(float threshold, File resultFile) throws IOException, LoadingException {		
 		List<Pair<PaperId, String>> plainPapers = loadAllPlain();
-		List<Pair<PaperId, String>> papersToExamine = loadAllEnriched();		
+		List<Pair<PaperId, String>> papersToExamine = loadAllEnriched();
+		algorithm(threshold, resultFile,plainPapers,papersToExamine);
+	}
+
+	public void algorithm(float threshold, File resultFile, List<Pair<PaperId, String>> plainPapers, List<Pair<PaperId, String>> enrichedPapers) throws IOException,
+			LoadingException {		
+		List<Pair<PaperId, String>> papersToExamine = new LinkedList<Pair<PaperId,String>>();
+		papersToExamine.addAll(enrichedPapers);
 		logger.info("All papers " + papersToExamine.size());
 
 		// load I0 from plain papers, not enriched
@@ -199,6 +205,8 @@ public class ClassifierBatchStorer {
 				plainPapersDir, enrichedDir, i0File, csvInterestingPapers);
 		instance.algorithm(threshold, resultFile);
 	}
+	
+
 
 	public List<Pair<PaperId, String>> getInterestingIn(
 			List<Pair<PaperId, String>> papers) {
@@ -212,12 +220,12 @@ public class ClassifierBatchStorer {
 		return interesting;
 	}
 
-	private List<Pair<PaperId, String>> loadAllEnriched() throws IOException,
+	List<Pair<PaperId, String>> loadAllEnriched() throws IOException,
 			LoadingException {
 		return loadAll(enrichedDir, "enriched",true);
 	}
 
-	private List<Pair<PaperId, String>> loadAllPlain() throws IOException,
+	List<Pair<PaperId, String>> loadAllPlain() throws IOException,
 			LoadingException {
 		return loadAll(plainPapersDir, "txt",false);
 	}
