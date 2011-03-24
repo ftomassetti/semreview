@@ -17,7 +17,7 @@ public class PaperId implements Serializable {
 		this.journalName = journalName;
 		this.year = year;
 		this.issue = issue;
-		this.title = title;
+		this.title = title.toLowerCase();
 	}
 	@Override
 	public int hashCode() {
