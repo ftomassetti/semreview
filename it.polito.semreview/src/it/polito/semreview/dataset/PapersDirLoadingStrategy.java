@@ -1,47 +1,51 @@
 package it.polito.semreview.dataset;
 
-import it.polito.semreview.utils.filesystem.FileUtils;
 import it.polito.softeng.common.Pair;
 import it.polito.softeng.common.StringUtils;
+import it.polito.softeng.common.exceptions.LoadingException;
+import it.polito.softeng.common.observerpattern.Observable;
 import it.polito.softeng.common.observerpattern.ObservableImpl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 /**
- * This class examine a directory and its subdirectories to find text files
- * which are loaded and Paper are created.
+ * This class examine a directory and its subdirectories files related to paper.
  */
-public class TextFileDirDataSetProvider extends ObservableImpl<Pair<PaperId,File>> implements DataSetProvider {
+public abstract class PapersDirLoadingStrategy<T extends Serializable> extends ObservableImpl<Pair<PaperId,T>> {
 	
-	private static Logger logger = Logger.getLogger(TextFileDirDataSetProvider.class);
+	private static Logger logger = Logger.getLogger(PapersDirLoadingStrategy.class);
 
 	private File rootDir;
 	private String journalName;
+	private String extension;
 
-	public TextFileDirDataSetProvider(File rootDir, String journalName) {
+	public PapersDirLoadingStrategy(File rootDir, String journalName, String extension) {
 		if (!rootDir.exists() || !rootDir.isDirectory()) {
 			throw new IllegalArgumentException(
 					"Given path should exist and being a directory");
 		}
 		this.rootDir = rootDir;
 		this.journalName = journalName;
+		this.extension = extension;
 	}
 
-	@Override
-	public List<Paper> getAllPapers() throws IOException {
-		List<Paper> papers = new LinkedList<Paper>();
+	protected abstract T load(PaperId paperId, File file) throws LoadingException;
+	
+	public Map<PaperId,T> getAll() throws IOException, LoadingException {
+		Map<PaperId,T> papers = new HashMap<PaperId,T>();
 		int yearsCount = 0;
 		int issuesCount = 0;
 		int papersCount = 0;
 		for (File yearDir : rootDir.listFiles()) {
 			try {
 				int year = Integer.parseInt(yearDir.getName());
-				yearsCount++;				
+				yearsCount++;
 				for (File issueDir : yearDir.listFiles()) {
 					if (issueDir.isDirectory()
 							&& issueDir.getName().startsWith("issue_")) {
@@ -49,15 +53,16 @@ public class TextFileDirDataSetProvider extends ObservableImpl<Pair<PaperId,File
 							int issue = Integer.parseInt(issueDir.getName()
 									.substring("issue_".length()));
 							for (File paperFile : issueDir.listFiles()) {
-								if (paperFile.isFile()&&paperFile.getName().endsWith(".txt")) {
+								if (paperFile.isFile()&&paperFile.getName().endsWith("."+extension)) {
 									String title = paperFile.getName();
 									title = StringUtils.removePostfix(title,
-											".txt");
+											"."+extension);
 									PaperId paperId = new PaperId(
 											this.journalName, year, issue,
 											title);
-									notifyEvent(new Pair<PaperId, File>(paperId,paperFile));
-									papers.add(load(paperId, paperFile));
+									T t = load(paperId, paperFile);
+									notifyEvent(new Pair<PaperId, T>(paperId, t));
+									papers.put(paperId,t);
 									papersCount++;
 								}
 							}
@@ -84,13 +89,6 @@ public class TextFileDirDataSetProvider extends ObservableImpl<Pair<PaperId,File
 		 * FileNameExtensionFilter("txt"), true)){ papers.add(load(textFile)); }
 		 */
 		return papers;
-	}
-
-	private Paper load(PaperId paperId, File textFile) throws IOException {
-		PaperImpl paper = new PaperImpl(paperId);
-		String content = FileUtils.readFile(textFile);
-		paper.addSection("fullText", content);
-		return paper;
 	}
 
 }

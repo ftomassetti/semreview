@@ -22,6 +22,7 @@ public class DbPediaFacadeImpl implements DbPediaFacade, ResourceRetriever {
 
 		String expectedURI = DbPediaURIRetriever
 				.getCommonlyExpectedURI(keyphrase);
+		logger.debug("Expected URI for keyphrase '"+keyphrase+"' is '"+expectedURI+"'");
 
 		DocumentParser documentParser = new DocumentParser();
 		DefinitionRetriever definitionRetriever = new DefinitionRetriever(
@@ -39,6 +40,7 @@ public class DbPediaFacadeImpl implements DbPediaFacade, ResourceRetriever {
 			Pair<String, Double>[] URIs = queryExecutor
 					.retrievePossibileURIs(keyphrase);
 			for (Pair<String, Double> uri : URIs) {
+				System.out.println("URI "+uri);
 				if (DefinitionRetriever.isADbPediaURI(uri.getFirst())) {
 					double eRank = uri.getSecond();
 					if (maxURI == null || eRank > maxErank) {

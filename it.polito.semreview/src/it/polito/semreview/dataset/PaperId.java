@@ -1,7 +1,14 @@
 package it.polito.semreview.dataset;
 
-public class PaperId {
+import java.io.Serializable;
 
+public class PaperId implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4247736922068907775L;
+	
 	private String journalName;
 	private int year;
 	private int issue;

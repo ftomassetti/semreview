@@ -70,7 +70,7 @@ final class DefinitionAnalyzer {
 			}
 		}
 		throw new UnvalidDefinitionException(definition,
-				"No OWL_ABSTRACT available");
+				"No OWL_ABSTRACT available ");
 	}
 
 }

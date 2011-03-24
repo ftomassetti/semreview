@@ -3,7 +3,7 @@ package it.polito.semreview.enrichment.keyphrasesextraction;
 import it.polito.semreview.dataset.Paper;
 import it.polito.softeng.common.Pair;
 
-import java.util.Set;
+import java.util.HashSet;
 
 public class TextToPaperKeyPhrasesExtractorAdapter implements KeyPhrasesExtractor<Paper> {
 	
@@ -16,7 +16,7 @@ public class TextToPaperKeyPhrasesExtractorAdapter implements KeyPhrasesExtracto
 	}
 
 	@Override
-	public Set<Pair<KeyPhrase, Double>> getKeyPhrases(Paper element) {
+	public HashSet<Pair<KeyPhrase, Double>> getKeyPhrases(Paper element) {
 		return textKeyPhrasesExtractor.getKeyPhrases(element.collateText());
 	}
 
