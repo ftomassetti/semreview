@@ -46,6 +46,7 @@ public class ClassifierBatchStorer {
 
 	public ClassifierBatchStorer(File plainPapersDir, File enrichedDir,
 			File i0File, File csvInterestingPapers) throws IOException {
+		logger.info("Plain dir " + plainPapersDir.getAbsolutePath());
 		logger.info("Enriched dir " + enrichedDir.getAbsolutePath());
 		logger.info("I0 file " + i0File.getAbsolutePath());
 		logger.info("CSV interesting paper "
@@ -139,9 +140,9 @@ public class ClassifierBatchStorer {
 			.getLogger(ClassifierBatchStorer.class);
 
 	public void algorithm(float threshold, File resultFile) throws IOException,
-			LoadingException {
+			LoadingException {		
 		List<Pair<PaperId, String>> plainPapers = loadAllPlain();
-		List<Pair<PaperId, String>> papersToExamine = loadAllEnriched();
+		List<Pair<PaperId, String>> papersToExamine = loadAllEnriched();		
 		logger.info("All papers " + papersToExamine.size());
 
 		// load I0 from plain papers, not enriched
@@ -182,7 +183,7 @@ public class ClassifierBatchStorer {
 	}
 
 	public static void main(String[] args) throws IOException, LoadingException {
-		if (args.length != 5) {
+		if (args.length != 6) {
 			System.err
 					.println("Args required: <plain papers dir> <enriched papers dir> <I_zero file> <interesting papers csv> <threshold> <result file>");
 			return;
@@ -213,15 +214,15 @@ public class ClassifierBatchStorer {
 
 	private List<Pair<PaperId, String>> loadAllEnriched() throws IOException,
 			LoadingException {
-		return loadAll(enrichedDir);
+		return loadAll(enrichedDir, "enriched",true);
 	}
 
 	private List<Pair<PaperId, String>> loadAllPlain() throws IOException,
 			LoadingException {
-		return loadAll(plainPapersDir);
+		return loadAll(plainPapersDir, "txt",false);
 	}
 
-	private List<Pair<PaperId, String>> loadAll(File papersDir)
+	private List<Pair<PaperId, String>> loadAll(File papersDir, String extension, final boolean serialized)
 			throws IOException, LoadingException {
 		final Map<PaperId, Boolean> interestingPapersFound = new HashMap<PaperId, Boolean>();
 		for (PaperId interestingPaper : interestingPapers) {
@@ -229,13 +230,21 @@ public class ClassifierBatchStorer {
 		}
 
 		PapersDirLoadingStrategy<String> pdls = new PapersDirLoadingStrategy<String>(
-				papersDir, "TSE", "enriched") {
+				papersDir, JOURNAL_NAME, extension) {
 
 			@Override
 			protected String load(PaperId paperId, File file)
 					throws LoadingException {
 				interestingPapersFound.put(paperId, true);
-				return SerializationStorage.load(file, String.class);
+				if (serialized){
+					return SerializationStorage.load(file, String.class);
+				} else {
+					try {
+						return FileUtils.readFile(file);
+					} catch (IOException e) {
+						throw new LoadingException(e);
+					}
+				}
 			}
 		};
 
