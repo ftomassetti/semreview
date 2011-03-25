@@ -48,7 +48,7 @@ public class ClassifierBatchStorerManyThresholdsManyI0s {
 				String thresholdStr = (new Formatter()).format("%1$.2f",
 						threshold).toString();
 				System.out.println("THRESHOLD " + thresholdStr);
-				File resultFile = new File(i0File.getParent()+File.separator+resultBasePath+ "_" + thresholdStr
+				File resultFile = new File(i0File.getParent()+File.separator+resultBasePath+ "_"+i0File.getName()+"_"+ thresholdStr
 						+ ".results");
 				instance.algorithm(threshold, resultFile, plainPapers,
 						papersToExamine, i0File);
