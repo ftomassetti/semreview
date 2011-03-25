@@ -5,7 +5,7 @@
  *     Luca Ardito	        <luca.ardito@polito.it>
  *     Giuseppe Rizzo       <giuseppe.rizzo@polito.it>
  *     Federico Tomassetti  <federico.tomassetti@polito.it>
- *     Antonio Vetrò        <antonio.vetro@polito.it>
+ *     Antonio Vetrï¿½        <antonio.vetro@polito.it>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,11 +27,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Reader;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.tartarus.snowball.ext.frenchStemmer;
 
 /**
  * Collection of utils methods to manipulate files.
@@ -39,7 +36,7 @@ import org.tartarus.snowball.ext.frenchStemmer;
  * @author Luca Ardito
  * @author Giuseppe Rizzo
  * @author Federico Tomassetti
- * @author Antonio Vetrò
+ * @author Antonio Vetrï¿½
  */
 public final class FileUtils {
 

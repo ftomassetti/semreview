@@ -1,12 +1,7 @@
 package it.polito.semreview.enrichment;
 
-import it.polito.semreview.dataset.DataSetProvider;
 import it.polito.semreview.dataset.Paper;
-import it.polito.semreview.dataset.PaperId;
-import it.polito.semreview.dataset.PaperImpl;
-import it.polito.semreview.dataset.TextFileDirDataSetProvider;
 import it.polito.semreview.dbpedia.DbPediaFacadeImpl;
-import it.polito.semreview.dbpedia.UnvalidDefinitionException;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrasesExtractor;
 import it.polito.semreview.enrichment.keyphrasesextraction.TextToPaperKeyPhrasesExtractorAdapter;
@@ -20,8 +15,6 @@ import it.polito.softeng.common.serialization.SerializationStorage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Set;
-
-import org.w3c.dom.Document;
 
 public class ProvaOpenCalais {
 
@@ -80,7 +73,7 @@ public class ProvaOpenCalais {
 		 * PaperImpl fakePaper = new PaperImpl( new PaperId("myJournal", 2050,
 		 * 1, "Prof. Antonio Vetro, nobel per l'informatica"));
 		 * fakePaper.addSection("fullText",
-		 * "Blasts of incoming fire came every few seconds at the edge of this city straddling a strategic highway intersection where rebels have bulldozed berms and filled hundreds of sandbags around two metal green arches marking the western approaches to the city. The barrage offered a loud and ferocious counterpoint to stalled efforts by Western diplomats to agree on help for the retreating rebels, such as a no-flight zone, even as Colonel Qaddafi warned the insurgents on Tuesday that they had only one choice: surrender or flee. Within an hour of the opening salvos, rebels began falling back from the city’s approaches as the shelling came closer to their positions. Some spoke valiantly about drawing a line in the desert sand, but the superior firepower and numbers of the loyalist troops suggested otherwise . The crash of heavy ordnance almost drowned out the cries of a muezzin from the minaret at a frontline mosque"
+		 * "Blasts of incoming fire came every few seconds at the edge of this city straddling a strategic highway intersection where rebels have bulldozed berms and filled hundreds of sandbags around two metal green arches marking the western approaches to the city. The barrage offered a loud and ferocious counterpoint to stalled efforts by Western diplomats to agree on help for the retreating rebels, such as a no-flight zone, even as Colonel Qaddafi warned the insurgents on Tuesday that they had only one choice: surrender or flee. Within an hour of the opening salvos, rebels began falling back from the cityï¿½s approaches as the shelling came closer to their positions. Some spoke valiantly about drawing a line in the desert sand, but the superior firepower and numbers of the loyalist troops suggested otherwise . The crash of heavy ordnance almost drowned out the cries of a muezzin from the minaret at a frontline mosque"
 		 * );
 		 */
 

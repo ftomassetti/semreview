@@ -1,11 +1,11 @@
 package it.polito.semreview.dbpedia;
 
+import it.polito.semreview.cachesystem.Operation;
+import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
+
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import it.polito.semreview.cachesystem.Operation;
-import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
 
 public class DbPediaOperation implements Operation<String> {
 	

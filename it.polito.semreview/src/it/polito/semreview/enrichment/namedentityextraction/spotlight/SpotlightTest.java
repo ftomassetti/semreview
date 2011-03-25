@@ -1,10 +1,5 @@
 package it.polito.semreview.enrichment.namedentityextraction.spotlight;
 
-import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.OpenCalaisKeyPhrasesProvider;
-
-import java.rmi.RemoteException;
-
-import javax.xml.rpc.ServiceException;
 
 public class SpotlightTest {
 

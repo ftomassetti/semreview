@@ -5,7 +5,7 @@
  *     Luca Ardito	        <luca.ardito@polito.it>
  *     Giuseppe Rizzo       <giuseppe.rizzo@polito.it>
  *     Federico Tomassetti  <federico.tomassetti@polito.it>
- *     Antonio Vetrò        <antonio.vetro@polito.it>
+ *     Antonio Vetrï¿½        <antonio.vetro@polito.it>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,15 +23,12 @@
 package it.polito.semreview.utils;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.Writer;
 import java.util.HashMap;
 
 import org.tartarus.snowball.SnowballStemmer;

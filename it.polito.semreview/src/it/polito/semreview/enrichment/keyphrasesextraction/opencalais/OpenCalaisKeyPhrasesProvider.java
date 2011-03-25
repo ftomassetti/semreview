@@ -5,18 +5,14 @@ import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhraseImpl;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrasesExtractor;
 import it.polito.softeng.common.Pair;
 
-import java.beans.Encoder;
 import java.io.StringReader;
 import java.rmi.RemoteException;
 import java.util.HashSet;
-import java.util.Set;
 
-import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.rpc.ServiceException;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

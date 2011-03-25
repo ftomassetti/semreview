@@ -15,7 +15,6 @@ import it.polito.softeng.common.observerpattern.Observer;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;

@@ -1,6 +1,5 @@
 package it.polito.semreview.enrichment.keyphrasesextraction.opencalais;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.rmi.RemoteException;
 

@@ -1,8 +1,8 @@
 package it.polito.semreview.dbpedia;
 
-import java.io.IOException;
-
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhraseImpl;
+
+import java.io.IOException;
 
 public class ProvaCpp {
 

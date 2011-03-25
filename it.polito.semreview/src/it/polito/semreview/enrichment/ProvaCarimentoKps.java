@@ -6,7 +6,6 @@ import it.polito.softeng.common.exceptions.LoadingException;
 import it.polito.softeng.common.serialization.SerializationStorage;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
