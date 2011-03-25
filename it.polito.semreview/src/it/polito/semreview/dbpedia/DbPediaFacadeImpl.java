@@ -5,6 +5,7 @@ import it.polito.semreview.resourcelookup.ResourceRetriever;
 import it.polito.softeng.common.Pair;
 
 import java.io.IOException;
+import java.net.URI;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -16,13 +17,24 @@ public class DbPediaFacadeImpl implements DbPediaFacade, ResourceRetriever {
 	private Logger logger = Logger.getLogger(DbPediaFacadeImpl.class);
 
 	@Override
+	public String retrieveAbstractFromURI(URI expectedURI) throws IOException, UnvalidResponseException, UnvalidDefinitionException, ParserConfigurationException {
+		DocumentParser documentParser = new DocumentParser();
+		DefinitionRetriever definitionRetriever = new DefinitionRetriever(
+				documentParser);
+		Document definition = definitionRetriever
+				.retrieveDefinition(expectedURI.toString());
+		return DefinitionAnalyzer.getAbstract(expectedURI.toString(), definition);
+	}
+
+	@Override
 	public String retrieveAbstract(String keyphrase)
 			throws NoResourceFoundException, ParserConfigurationException,
 			IOException, UnvalidResponseException, UnvalidDefinitionException {
 
 		String expectedURI = DbPediaURIRetriever
 				.getCommonlyExpectedURI(keyphrase);
-		logger.debug("Expected URI for keyphrase '"+keyphrase+"' is '"+expectedURI+"'");
+		logger.debug("Expected URI for keyphrase '" + keyphrase + "' is '"
+				+ expectedURI + "'");
 
 		DocumentParser documentParser = new DocumentParser();
 		DefinitionRetriever definitionRetriever = new DefinitionRetriever(
@@ -40,7 +52,7 @@ public class DbPediaFacadeImpl implements DbPediaFacade, ResourceRetriever {
 			Pair<String, Double>[] URIs = queryExecutor
 					.retrievePossibileURIs(keyphrase);
 			for (Pair<String, Double> uri : URIs) {
-				System.out.println("URI "+uri);
+				System.out.println("URI " + uri);
 				if (DefinitionRetriever.isADbPediaURI(uri.getFirst())) {
 					double eRank = uri.getSecond();
 					if (maxURI == null || eRank > maxErank) {
@@ -62,7 +74,8 @@ public class DbPediaFacadeImpl implements DbPediaFacade, ResourceRetriever {
 	}
 
 	@Override
-	public String getDefinitionText(KeyPhrase keyPhrase) throws IOException, UnvalidDefinitionException {
+	public String getDefinitionText(KeyPhrase keyPhrase) throws IOException,
+			UnvalidDefinitionException {
 		try {
 			return retrieveAbstract(keyPhrase.text());
 		} catch (NoResourceFoundException e) {

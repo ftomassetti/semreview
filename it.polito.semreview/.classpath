@@ -14,5 +14,7 @@
 	<classpathentry kind="lib" path="lib/commons-lang-2.6-sources.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang-2.6.jar"/>
 	<classpathentry kind="lib" path="lib/it.polito.softeng.common-1.0.8-20110315.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-bundle-1.5.jar"/>
+	<classpathentry kind="lib" path="lib/jsr311-api-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
