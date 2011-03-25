@@ -18,9 +18,9 @@ import java.util.HashSet;
 
 import org.apache.log4j.Logger;
 
-public class EnricherBatchStorer {
+public class SpotlightEnricherBatchStorer {
 	
-	private static final Logger logger = Logger.getLogger(EnricherBatchStorer.class);
+	private static final Logger logger = Logger.getLogger(SpotlightEnricherBatchStorer.class);
 	
 	static final String ENRICHED_DIR = "\\\\pittore.polito.it\\dataset\\enriched";
 	

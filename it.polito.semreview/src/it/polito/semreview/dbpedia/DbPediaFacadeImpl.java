@@ -17,7 +17,10 @@ public class DbPediaFacadeImpl implements DbPediaFacade, ResourceRetriever {
 	private Logger logger = Logger.getLogger(DbPediaFacadeImpl.class);
 
 	@Override
-	public String retrieveAbstractFromURI(URI expectedURI) throws IOException, UnvalidResponseException, UnvalidDefinitionException, ParserConfigurationException {
+	public String retrieveAbstractFromURI(URI expectedURI) 
+			throws IOException, UnvalidResponseException, 
+			UnvalidDefinitionException, ParserConfigurationException {
+		
 		DocumentParser documentParser = new DocumentParser();
 		DefinitionRetriever definitionRetriever = new DefinitionRetriever(
 				documentParser);

@@ -46,5 +46,11 @@ public class NamedEntityImpl implements NamedEntity{
 	public Integer support() {
 		return this.support;
 	}
+	
+	@Override
+	public String toString() {
+		return "NameEntity [name=" + name + ",type=" + type + 
+				",uri=" + uri.toString() + "]";
+	}
 
 }
