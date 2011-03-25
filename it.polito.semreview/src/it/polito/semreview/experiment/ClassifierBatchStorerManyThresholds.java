@@ -6,6 +6,7 @@ import it.polito.softeng.common.exceptions.LoadingException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Formatter;
 import java.util.List;
 
 public class ClassifierBatchStorerManyThresholds {
@@ -29,8 +30,9 @@ public class ClassifierBatchStorerManyThresholds {
 		List<Pair<PaperId, String>> plainPapers = instance.loadAllPlain();
 		List<Pair<PaperId, String>> papersToExamine = instance.loadAllEnriched();
 		for (float threshold=0f;threshold<=1.0f;threshold+=0.01f){
-			System.out.println("THRESHOLD "+threshold);
-			File resultFile = new File(args[4]+"_"+threshold+".results");
+			String thresholdStr = (new Formatter()).format("%1$.2f",threshold).toString();
+			System.out.println("THRESHOLD "+thresholdStr);
+			File resultFile = new File(args[4]+"_"+thresholdStr+".results");
 			instance.algorithm(threshold, resultFile,plainPapers,papersToExamine);
 		}
 

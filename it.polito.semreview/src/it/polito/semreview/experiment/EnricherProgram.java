@@ -28,7 +28,6 @@ import it.polito.semreview.dbpedia.NoResourceFoundException;
 import it.polito.semreview.dbpedia.UnvalidDefinitionException;
 import it.polito.semreview.dbpedia.UnvalidResponseException;
 import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.OpenCalaisKeyPhrasesProvider;
-import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.KeyPhrasesProvider;
 import it.polito.semreview.utils.filesystem.FileNameExtensionFilter;
 import it.polito.semreview.utils.filesystem.FileUtils;
 import it.polito.softeng.common.Pair;
@@ -41,6 +40,10 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 
+/**
+ * La cancello?
+ */
+@Deprecated
 public class EnricherProgram {
 
 	public static final String DATASET_PATH = "dataset";

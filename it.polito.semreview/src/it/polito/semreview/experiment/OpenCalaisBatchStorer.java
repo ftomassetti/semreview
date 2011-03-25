@@ -1,4 +1,4 @@
-package it.polito.semreview.enrichment.keyphrasesextraction.opencalais;
+package it.polito.semreview.experiment;
 
 import it.polito.semreview.cachesystem.Operation;
 import it.polito.semreview.cachesystem.OperationCaching;
@@ -7,6 +7,7 @@ import it.polito.semreview.dataset.Paper;
 import it.polito.semreview.dataset.PaperId;
 import it.polito.semreview.dataset.TextFileDirDataSetProvider;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
+import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.OpenCalaisKeyPhrasesProvider;
 import it.polito.softeng.common.Pair;
 import it.polito.softeng.common.exceptions.LoadingException;
 import it.polito.softeng.common.exceptions.StoringException;

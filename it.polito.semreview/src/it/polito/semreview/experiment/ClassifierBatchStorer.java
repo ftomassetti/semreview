@@ -55,29 +55,34 @@ public class ClassifierBatchStorer {
 		this.enrichedDir = enrichedDir;
 		this.i0File = i0File;
 		this.csvInterestingPapers = csvInterestingPapers;
-		interestingPapers = getInterestingPapers();
+		calcInterestingPapers();
 	}
 
 	private File csvInterestingPapers;
 
-	private List<PaperId> getInterestingPapers() throws IOException {
+	private void calcInterestingPapers() throws IOException {
 		CsvReader reader = CsvReader.parse(FileUtils
 				.readFile(csvInterestingPapers));
 		reader.setDelimiter(';');
 		reader.skipLine();
 
-		List<PaperId> interestingPapers = new LinkedList<PaperId>();
+		interestingPapers = new LinkedList<PaperId>();
+		csvIndex = new HashMap<PaperId, Integer>();
+		int index = 0;
 		while (reader.readRecord()) {
 			String title = reader.get(2);
 			int year = Integer.parseInt(reader.get(3));
 			int issue = Integer.parseInt(reader.get(4));
+			PaperId paperId = new PaperId(JOURNAL_NAME, year, issue, title);
 			interestingPapers
-					.add(new PaperId(JOURNAL_NAME, year, issue, title));
+					.add(paperId);
+			csvIndex.put(paperId, index++);
 		}
-		return interestingPapers;
+		
 	}
 
 	private List<PaperId> interestingPapers;
+	private Map<PaperId,Integer> csvIndex;
 
 	private Set<Integer> getI0Indexes() throws IOException {
 		if (!i0File.exists()) {
@@ -172,11 +177,20 @@ public class ClassifierBatchStorer {
 			}
 
 			// update model
-			List<Pair<PaperId, String>> reallyInterestingPapers = getInterestingIn(papersFiltered);
-			results.append("Interesting:" + reallyInterestingPapers.size()
-					+ "\n");
+			List<Pair<PaperId, String>> truePositives = getInterestingIn(papersFiltered);
+			boolean first = true;
+			for (Pair<PaperId,String> aTruePositive : truePositives){
+				PaperId paperId = aTruePositive.getFirst();
+				if (!first){
+					results.append(",");
+				} else {
+					first = false;
+				}
+				results.append(getCsvIndex(paperId));
+			}
+			results.append("\n");
 			// find plain papers and use them
-			for (Pair<PaperId, String> interestinPaper : reallyInterestingPapers) {
+			for (Pair<PaperId, String> interestinPaper : truePositives) {
 				String plainPaper = getContent(plainPapers, interestinPaper.getFirst());
 				model.train("interesting", plainPaper);
 			}
@@ -186,6 +200,13 @@ public class ClassifierBatchStorer {
 		}
 
 		FileUtils.saveFile(resultFile, results.toString());
+	}
+	
+	private int getCsvIndex(PaperId paperId){
+		if (!csvIndex.containsKey(paperId)){
+			throw new UnknownElementException(paperId);
+		}
+		return csvIndex.get(paperId);
 	}
 
 	public static void main(String[] args) throws IOException, LoadingException {

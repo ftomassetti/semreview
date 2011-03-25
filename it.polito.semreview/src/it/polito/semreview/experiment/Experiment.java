@@ -13,6 +13,11 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * La cancello?
+ * 
+ */
+@Deprecated
 public class Experiment {
 
 	public static void main(String[] args) {
