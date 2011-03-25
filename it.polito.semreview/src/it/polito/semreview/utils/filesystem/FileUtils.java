@@ -27,8 +27,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.tartarus.snowball.ext.frenchStemmer;
 
 /**
  * Collection of utils methods to manipulate files.
@@ -41,7 +44,7 @@ import java.util.List;
 public final class FileUtils {
 
 	public static final String END_LINE = "\n";
-	
+
 	/**
 	 * This constructor prevents instantiation.
 	 */
@@ -50,15 +53,18 @@ public final class FileUtils {
 	}
 
 	/**
-	 * This method builds a list of file contained in a given directory which can
-	 * are accepted by a given <code>FileFilter</code>.
+	 * This method builds a list of file contained in a given directory which
+	 * can are accepted by a given <code>FileFilter</code>.
 	 * 
 	 * @param dir
 	 * @param filter
-	 * @param recursive when this parameter is true also sub-directories are examined.
+	 * @param recursive
+	 *            when this parameter is true also sub-directories are examined.
 	 * @return
 	 * 
-	 * @throws IllegalArgumentException if the specified directory does not exist or it is not a directory.
+	 * @throws IllegalArgumentException
+	 *             if the specified directory does not exist or it is not a
+	 *             directory.
 	 */
 	public static List<File> listFile(File dir, FileFilter filter,
 			boolean recursive) {
@@ -82,11 +88,12 @@ public final class FileUtils {
 	}
 
 	/**
-	 * This method composes a list of name of files. Just the last part of the name is
-	 * used, not the path.
+	 * This method composes a list of name of files. Just the last part of the
+	 * name is used, not the path.
 	 * 
-	 * @param eliminateExtension when this parameter is true the extension is removed (also
-	 * the dot point).
+	 * @param eliminateExtension
+	 *            when this parameter is true the extension is removed (also the
+	 *            dot point).
 	 */
 	public static List<String> toFileNames(List<File> files,
 			boolean eliminateExtension) {
@@ -107,7 +114,8 @@ public final class FileUtils {
 	/**
 	 * This method read a whole file and return the content.
 	 * 
-	 * @throws IOException when an error occurs while reading the file.
+	 * @throws IOException
+	 *             when an error occurs while reading the file.
 	 */
 	public static String readFile(File file) throws IOException {
 		if (!file.exists()) {
@@ -116,33 +124,43 @@ public final class FileUtils {
 		if (!file.isFile()) {
 			throw new IllegalArgumentException("Illegal path: not a dfile");
 		}
-		BufferedReader reader = new BufferedReader(new FileReader(file));
+		FileReader fr = null;
+		BufferedReader reader = null;
 		StringBuffer buffer = new StringBuffer();
-		String line = null;
-		do {
-			line = reader.readLine();
-			if (line!=null) {
-				buffer.append(line);
-				buffer.append(END_LINE);
-			}
-		} while (line!=null);
+		try {
+			fr = new FileReader(file);
+			reader = new BufferedReader(fr);
+			
+			String line = null;
+			do {
+				line = reader.readLine();
+				if (line != null) {
+					buffer.append(line);
+					buffer.append(END_LINE);
+				}
+			} while (line != null);
+			
+		} finally {
+			reader.close();
+			fr.close();
+		}
 		return buffer.toString();
 	}
 
-	public static void saveFile(File file, String text) throws IOException{
+	public static void saveFile(File file, String text) throws IOException {
 		FileWriter writer = new FileWriter(file);
 		writer.write(text);
 		writer.close();
 	}
-	
-	public static File changeExtensionTo(File originalFile, String extension){
+
+	public static File changeExtensionTo(File originalFile, String extension) {
 		String path = originalFile.getPath();
 		int lastDot = path.lastIndexOf('.');
-		if (lastDot!=-1){
-			path = path.substring(0,lastDot);
+		if (lastDot != -1) {
+			path = path.substring(0, lastDot);
 		}
-		path += "."+extension;
+		path += "." + extension;
 		return new File(path);
 	}
-	
+
 }

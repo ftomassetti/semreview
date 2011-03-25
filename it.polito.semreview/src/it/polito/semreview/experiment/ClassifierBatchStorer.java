@@ -5,7 +5,7 @@ import it.polito.semreview.classifiers.KnowledgeBase;
 import it.polito.semreview.classifiers.NaiveBayes;
 import it.polito.semreview.dataset.PaperId;
 import it.polito.semreview.dataset.PapersDirLoadingStrategy;
-import it.polito.softeng.common.FileUtils;
+import it.polito.semreview.utils.filesystem.FileUtils;
 import it.polito.softeng.common.Pair;
 import it.polito.softeng.common.exceptions.LoadingException;
 import it.polito.softeng.common.exceptions.UnknownElementException;
@@ -26,7 +26,6 @@ import com.csvreader.CsvReader;
 
 public class ClassifierBatchStorer {
 
-	private File i0File;
 	private File enrichedDir;
 	private File plainPapersDir;
 
@@ -45,15 +44,13 @@ public class ClassifierBatchStorer {
 	private Classifier classifier;
 
 	public ClassifierBatchStorer(File plainPapersDir, File enrichedDir,
-			File i0File, File csvInterestingPapers) throws IOException {
+			File csvInterestingPapers) throws IOException {
 		logger.info("Plain dir " + plainPapersDir.getAbsolutePath());
 		logger.info("Enriched dir " + enrichedDir.getAbsolutePath());
-		logger.info("I0 file " + i0File.getAbsolutePath());
 		logger.info("CSV interesting paper "
 				+ csvInterestingPapers.getAbsolutePath());
 		this.plainPapersDir = plainPapersDir;
 		this.enrichedDir = enrichedDir;
-		this.i0File = i0File;
 		this.csvInterestingPapers = csvInterestingPapers;
 		calcInterestingPapers();
 	}
@@ -84,7 +81,7 @@ public class ClassifierBatchStorer {
 	private List<PaperId> interestingPapers;
 	private Map<PaperId,Integer> csvIndex;
 
-	private Set<Integer> getI0Indexes() throws IOException {
+	private Set<Integer> getI0Indexes(File i0File) throws IOException {
 		if (!i0File.exists()) {
 			System.err.println("I_zero file " + i0File.getAbsolutePath()
 					+ " does not exist");
@@ -100,8 +97,8 @@ public class ClassifierBatchStorer {
 		return indexes;
 	}
 
-	private Set<PaperId> getI0Ids() throws IOException {
-		Set<Integer> indexes = getI0Indexes();
+	private Set<PaperId> getI0Ids(File i0File) throws IOException {
+		Set<Integer> indexes = getI0Indexes(i0File);
 		Set<PaperId> ids = new HashSet<PaperId>();
 		for (int index : indexes) {
 			ids.add(interestingPapers.get(index));
@@ -144,25 +141,25 @@ public class ClassifierBatchStorer {
 	private static final Logger logger = Logger
 			.getLogger(ClassifierBatchStorer.class);
 	
-	public void algorithm(float threshold, File resultFile) throws IOException, LoadingException {		
+	public void algorithm(float threshold, File resultFile, File i0File) throws IOException, LoadingException {		
 		List<Pair<PaperId, String>> plainPapers = loadAllPlain();
 		List<Pair<PaperId, String>> papersToExamine = loadAllEnriched();
-		algorithm(threshold, resultFile,plainPapers,papersToExamine);
+		algorithm(threshold, resultFile,plainPapers,papersToExamine, i0File);
 	}
 
-	public void algorithm(float threshold, File resultFile, List<Pair<PaperId, String>> plainPapers, List<Pair<PaperId, String>> enrichedPapers) throws IOException,
+	public void algorithm(float threshold, File resultFile, List<Pair<PaperId, String>> plainPapers, List<Pair<PaperId, String>> enrichedPapers, File i0File) throws IOException,
 			LoadingException {		
 		List<Pair<PaperId, String>> papersToExamine = new LinkedList<Pair<PaperId,String>>();
 		papersToExamine.addAll(enrichedPapers);
 		logger.info("All papers " + papersToExamine.size());
 
 		// load I0 from plain papers, not enriched
-		KnowledgeBase model = getModel(getContent(plainPapers, getI0Ids()));
+		KnowledgeBase model = getModel(getContent(plainPapers, getI0Ids(i0File)));
 
 		StringBuffer results = new StringBuffer();
 
 		// remove I0 from papersToExamine
-		removeIds(papersToExamine, getI0Ids());
+		removeIds(papersToExamine, getI0Ids(i0File));
 		logger.info("Papers to examine (I0 removed): " + papersToExamine.size());
 
 		int iteration = 0;
@@ -223,12 +220,10 @@ public class ClassifierBatchStorer {
 		float threshold = Float.parseFloat(args[4]);
 		File resultFile = new File(args[5]);
 		ClassifierBatchStorer instance = new ClassifierBatchStorer(
-				plainPapersDir, enrichedDir, i0File, csvInterestingPapers);
-		instance.algorithm(threshold, resultFile);
+				plainPapersDir, enrichedDir, csvInterestingPapers);
+		instance.algorithm(threshold, resultFile, i0File);
 	}
 	
-
-
 	public List<Pair<PaperId, String>> getInterestingIn(
 			List<Pair<PaperId, String>> papers) {
 		List<Pair<PaperId, String>> interesting = new LinkedList<Pair<PaperId, String>>();

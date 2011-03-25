@@ -13,14 +13,14 @@ public class ClassifierBatchStorerManyThresholds {
 	
 	public static void execute(File plainPapersDir, File enrichedDir,File i0File,File csvInterestingPapers, String resultBasePath) throws IOException, LoadingException{
 		ClassifierBatchStorer instance = new ClassifierBatchStorer(
-				plainPapersDir, enrichedDir, i0File, csvInterestingPapers);
+				plainPapersDir, enrichedDir, csvInterestingPapers);
 		List<Pair<PaperId, String>> plainPapers = instance.loadAllPlain();
 		List<Pair<PaperId, String>> papersToExamine = instance.loadAllEnriched();
 		for (float threshold=0f;threshold<=1.0f;threshold+=0.01f){
 			String thresholdStr = (new Formatter()).format("%1$.2f",threshold).toString();
 			System.out.println("THRESHOLD "+thresholdStr);
 			File resultFile = new File(resultBasePath+"_"+thresholdStr+".results");
-			instance.algorithm(threshold, resultFile,plainPapers,papersToExamine);
+			instance.algorithm(threshold, resultFile,plainPapers,papersToExamine, i0File);
 		}
 	}
 
