@@ -15,7 +15,7 @@ public class ClassifierBatchStorerManyThresholds {
 		ClassifierBatchStorer instance = new ClassifierBatchStorer(
 				plainPapersDir, enrichedDir, csvInterestingPapers);
 		List<Pair<PaperId, String>> plainPapers = instance.loadAllPlain();
-		List<Pair<PaperId, String>> papersToExamine = instance.loadAllEnriched();
+		List<Pair<PaperId, String>> papersToExamine = instance.useEnrichedPapers()?instance.loadAllEnriched():plainPapers;
 		for (float threshold=0f;threshold<=1.0f;threshold+=0.01f){
 			String thresholdStr = (new Formatter()).format("%1$.2f",threshold).toString();
 			System.out.println("THRESHOLD "+thresholdStr);

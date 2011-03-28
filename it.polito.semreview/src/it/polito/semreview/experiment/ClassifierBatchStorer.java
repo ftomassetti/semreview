@@ -42,7 +42,35 @@ public class ClassifierBatchStorer {
 	}
 
 	private Classifier classifier;
+	
+	/**
+	 * Create an instance which does not use enriched papers.
+	 * 
+	 * @param plainPapersDir
+	 * @param csvInterestingPapers
+	 * @throws IOException
+	 */
+	public ClassifierBatchStorer(File plainPapersDir, 
+			File csvInterestingPapers) throws IOException {
+		logger.info("Plain dir " + plainPapersDir.getAbsolutePath());
+		if (useEnrichedPapers()){
+			logger.info("Enriched dir " + enrichedDir.getAbsolutePath());
+		}
+		logger.info("CSV interesting paper "
+				+ csvInterestingPapers.getAbsolutePath());
+		this.plainPapersDir = plainPapersDir;
+		this.enrichedDir = null;
+		this.csvInterestingPapers = csvInterestingPapers;
+		calcInterestingPapers();
+	}
 
+	/**
+	 * Create an instance which use enriched papers.
+	 * 
+	 * @param plainPapersDir
+	 * @param csvInterestingPapers
+	 * @throws IOException
+	 */
 	public ClassifierBatchStorer(File plainPapersDir, File enrichedDir,
 			File csvInterestingPapers) throws IOException {
 		logger.info("Plain dir " + plainPapersDir.getAbsolutePath());
@@ -141,9 +169,13 @@ public class ClassifierBatchStorer {
 	private static final Logger logger = Logger
 			.getLogger(ClassifierBatchStorer.class);
 	
+	public boolean useEnrichedPapers(){
+		return enrichedDir!=null;
+	}
+	
 	public void algorithm(float threshold, File resultFile, File i0File) throws IOException, LoadingException {		
-		List<Pair<PaperId, String>> plainPapers = loadAllPlain();
-		List<Pair<PaperId, String>> papersToExamine = loadAllEnriched();
+		List<Pair<PaperId, String>> plainPapers = loadAllPlain();		
+		List<Pair<PaperId, String>> papersToExamine = useEnrichedPapers()?loadAllEnriched():plainPapers;
 		algorithm(threshold, resultFile,plainPapers,papersToExamine, i0File);
 	}
 
@@ -238,6 +270,9 @@ public class ClassifierBatchStorer {
 
 	List<Pair<PaperId, String>> loadAllEnriched() throws IOException,
 			LoadingException {
+		if (enrichedDir==null){
+			throw new IllegalStateException("This instance works not on enriched papers");
+		}
 		return loadAll(enrichedDir, "enriched",true);
 	}
 
