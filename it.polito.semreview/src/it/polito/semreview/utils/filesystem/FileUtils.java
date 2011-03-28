@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -83,7 +84,50 @@ public final class FileUtils {
 		}
 		return files;
 	}
+	
+/*	public static Iterator<File> listFileIteratively(File dir, FileFilter filter,
+			boolean recursive) {
+		if (!dir.exists()) {
+			throw new IllegalArgumentException("Illegal path: unexisting");
+		}
+		if (!dir.isDirectory()) {
+			throw new IllegalArgumentException("Illegal path: not a directory");
+		}
+		List<File> files = new LinkedList<File>();
+		for (File f : dir.listFiles()) {
+			if (f.isFile()) {
+				if (filter.accept(f)) {
+					files.add(f);
+				}
+			} else if (f.isDirectory() && recursive) {
+				files.addAll(listFile(f, filter, recursive));
+			}
+		}
+		return files;
+	}
 
+	/*private static class MyDirIterator implements Iterator<File> {
+		private File[] files;
+
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public File next() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+		
+	}*/
+	
 	/**
 	 * This method composes a list of name of files. Just the last part of the
 	 * name is used, not the path.
