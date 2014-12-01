@@ -61,9 +61,11 @@
         </dependency>
         <!-- Probably it would need some adaptations -->
         <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-snowball</artifactId>
-            <version>3.0.3</version>
+            <groupId>tartarus</groupId>
+            <artifactId>snowball</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/snowball.jar</systemPath>
         </dependency>
 
     </dependencies>
