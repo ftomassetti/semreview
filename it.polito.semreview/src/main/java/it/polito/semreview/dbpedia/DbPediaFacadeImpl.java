@@ -2,7 +2,7 @@ package it.polito.semreview.dbpedia;
 
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
 import it.polito.semreview.resourcelookup.ResourceRetriever;
-import it.polito.softeng.common.Pair;
+import it.polito.softeng.common.collections.Pair;
 
 import java.io.IOException;
 import java.net.URI;

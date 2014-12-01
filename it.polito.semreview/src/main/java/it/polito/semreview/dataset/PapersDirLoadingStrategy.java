@@ -1,6 +1,6 @@
 package it.polito.semreview.dataset;
 
-import it.polito.softeng.common.Pair;
+import it.polito.softeng.common.collections.Pair;
 import it.polito.softeng.common.StringUtils;
 import it.polito.softeng.common.exceptions.LoadingException;
 import it.polito.softeng.common.observerpattern.ObservableImpl;

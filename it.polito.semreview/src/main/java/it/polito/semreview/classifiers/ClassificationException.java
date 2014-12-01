@@ -5,7 +5,7 @@
  *     Luca Ardito	        <luca.ardito@polito.it>
  *     Giuseppe Rizzo       <giuseppe.rizzo@polito.it>
  *     Federico Tomassetti  <federico.tomassetti@polito.it>
- *     Antonio Vetrò        <antonio.vetro@polito.it>
+ *     Antonio Vetrï¿½        <antonio.vetro@polito.it>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ package it.polito.semreview.classifiers;
  * @author Luca Ardito
  * @author Giuseppe Rizzo
  * @author Federico Tomassetti
- * @author Antonio Vetrò
+ * @author Antonio Vetro'
  */
 public class ClassificationException extends Exception {
 

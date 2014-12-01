@@ -1,7 +1,7 @@
 package it.polito.semreview.experiment;
 
 import it.polito.semreview.dataset.PaperId;
-import it.polito.softeng.common.Pair;
+import it.polito.softeng.common.collections.Pair;
 import it.polito.softeng.common.exceptions.LoadingException;
 
 import java.io.File;

@@ -6,7 +6,7 @@ import it.polito.semreview.classifiers.NaiveBayes;
 import it.polito.semreview.dataset.PaperId;
 import it.polito.semreview.dataset.PapersDirLoadingStrategy;
 import it.polito.semreview.utils.filesystem.FileUtils;
-import it.polito.softeng.common.Pair;
+import it.polito.softeng.common.collections.Pair;
 import it.polito.softeng.common.exceptions.LoadingException;
 import it.polito.softeng.common.exceptions.UnknownElementException;
 import it.polito.softeng.common.serialization.SerializationStorage;

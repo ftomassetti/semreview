@@ -5,7 +5,7 @@ import it.polito.semreview.dbpedia.UnvalidDefinitionException;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrasesExtractor;
 import it.polito.semreview.resourcelookup.ResourceRetriever;
-import it.polito.softeng.common.Pair;
+import it.polito.softeng.common.collections.Pair;
 
 import java.io.IOException;
 import java.util.HashSet;

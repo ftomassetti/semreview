@@ -8,7 +8,7 @@ import it.polito.semreview.enrichment.keyphrasesextraction.TextToPaperKeyPhrases
 import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.OpenCalaisKeyPhrasesProvider;
 import it.polito.semreview.resourcelookup.ResourceRetriever;
 import it.polito.semreview.utils.filesystem.FileUtils;
-import it.polito.softeng.common.Pair;
+import it.polito.softeng.common.collections.Pair;
 import it.polito.softeng.common.exceptions.StoringException;
 import it.polito.softeng.common.serialization.SerializationStorage;
 

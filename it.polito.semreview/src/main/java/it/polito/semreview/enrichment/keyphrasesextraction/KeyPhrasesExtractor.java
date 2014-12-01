@@ -1,6 +1,6 @@
 package it.polito.semreview.enrichment.keyphrasesextraction;
 
-import it.polito.softeng.common.Pair;
+import it.polito.softeng.common.collections.Pair;
 
 import java.util.HashSet;
 

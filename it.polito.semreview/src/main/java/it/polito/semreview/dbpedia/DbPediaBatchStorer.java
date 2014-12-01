@@ -7,7 +7,7 @@ import it.polito.semreview.dataset.PaperId;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
 import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.KeyPhrasesLoadingDirStrategy;
 import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.OpenCalaisKeyPhrasesProvider;
-import it.polito.softeng.common.Pair;
+import it.polito.softeng.common.collections.Pair;
 import it.polito.softeng.common.exceptions.LoadingException;
 import it.polito.softeng.common.exceptions.StoringException;
 import it.polito.softeng.common.observerpattern.Observer;

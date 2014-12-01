@@ -1,9 +1,9 @@
 package it.polito.semreview.experiment;
 
 import it.polito.semreview.dataset.PaperId;
-import it.polito.softeng.common.ExtensionFileNameFilter;
-import it.polito.softeng.common.FileUtils;
-import it.polito.softeng.common.Pair;
+import it.polito.softeng.common.filesystem.ExtensionFileNameFilter;
+import it.polito.softeng.common.filesystem.FileUtils;
+import it.polito.softeng.common.collections.Pair;
 import it.polito.softeng.common.exceptions.LoadingException;
 
 import java.io.File;

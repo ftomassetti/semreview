@@ -1,7 +1,7 @@
 package it.polito.semreview.enrichment;
 
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
-import it.polito.softeng.common.Pair;
+import it.polito.softeng.common.collections.Pair;
 import it.polito.softeng.common.exceptions.LoadingException;
 import it.polito.softeng.common.serialization.SerializationStorage;
 

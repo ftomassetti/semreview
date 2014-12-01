@@ -1,6 +1,6 @@
 package it.polito.semreview.dbpedia;
 
-import it.polito.softeng.common.Pair;
+import it.polito.softeng.common.collections.Pair;
 
 import java.io.BufferedReader;
 import java.io.IOException;

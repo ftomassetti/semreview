@@ -37,7 +37,7 @@ import java.util.List;
  * @author Luca Ardito
  * @author Giuseppe Rizzo
  * @author Federico Tomassetti
- * @author Antonio Vetr�
+ * @author Antonio Vetro'
  */
 public final class FileUtils {
 

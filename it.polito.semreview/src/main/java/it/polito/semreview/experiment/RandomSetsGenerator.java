@@ -1,6 +1,6 @@
 package it.polito.semreview.experiment;
 
-import it.polito.softeng.common.FileUtils;
+import it.polito.softeng.common.filesystem.FileUtils;
 
 import java.io.File;
 import java.io.IOException;

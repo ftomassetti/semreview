@@ -3,7 +3,7 @@ package it.polito.semreview.enrichment.keyphrasesextraction.opencalais;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhraseImpl;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrasesExtractor;
-import it.polito.softeng.common.Pair;
+import it.polito.softeng.common.collections.Pair;
 
 import java.io.StringReader;
 import java.rmi.RemoteException;
