@@ -8,6 +8,19 @@ How to use it
 
 _To be written_
 
+Internal architecture
+=====================
+The system is mainly a pipeline:
+
+1) DataSetProvider: 
+	the first stage provide the documents
+	
+2) PaperEnricher: 
+	the second stage enrich the documents
+
+3) Classifier:
+	the third stage compare enricheded documents to the model
+
 Authors
 =======
 
