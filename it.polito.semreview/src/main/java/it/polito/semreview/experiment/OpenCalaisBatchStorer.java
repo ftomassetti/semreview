@@ -14,6 +14,7 @@ import it.polito.softeng.common.exceptions.StoringException;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Set;
 
 public class OpenCalaisBatchStorer {
@@ -47,7 +48,7 @@ public class OpenCalaisBatchStorer {
 							+ paper.getId().getTitle() + ".kp");
 					Operation operation = new OpenCalaisOperation(paper);
 					try {
-						OperationCaching.get(operation, kpFile, Object.class);
+						OperationCaching.get(operation, kpFile, Serializable.class);
 						System.out.println("" + papersCount + ") Ok, "
 								+ paper.getId());
 						papersCount++;

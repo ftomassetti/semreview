@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+import java.io.Serializable;
+
 import org.apache.log4j.Logger;
 
 public class DbPediaBatchStorer {
@@ -138,7 +140,7 @@ public class DbPediaBatchStorer {
 						System.out.println("Total: "+total+", Good: "+good);
 						total++;
 						OperationCaching.get(operation, resFile,
-								Object.class);
+								Serializable.class);
 						good++;
 					} catch (LoadingException e) {
 						e.printStackTrace();
