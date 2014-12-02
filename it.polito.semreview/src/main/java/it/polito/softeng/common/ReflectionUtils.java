@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @author Federico Tomassetti <federico.tomassetti@polito.it>
+ * @author Federico Tomassetti
  */
 public final class ReflectionUtils {
 

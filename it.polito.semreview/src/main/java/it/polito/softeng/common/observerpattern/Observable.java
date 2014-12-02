@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * 
- * @author Federico Tomassetti <federico.tomassetti@polito.it>
+ * @author Federico Tomassetti
  * @since 1.0.5
  */
 public interface Observable<E> {

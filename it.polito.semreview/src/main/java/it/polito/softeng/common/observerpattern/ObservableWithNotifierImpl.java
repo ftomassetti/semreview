@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * 
- * @author Federico Tomassetti <federico.tomassetti@polito.it>
+ * @author Federico Tomassetti
  * @since 1.1.2
  */
 public class ObservableWithNotifierImpl<E, N> implements

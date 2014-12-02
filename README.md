@@ -32,7 +32,12 @@ The system is mainly a pipeline:
 Authors
 =======
 
-The project was initially developed by Federico Tomassetti, Giuseppe Rizzo, Antonio Vetro', Luca Ardito and Marco Torchiano.
+The project was initially developed by:
+* [Federico Tomassetti](https://github.com/ftomassetti)
+* [Giuseppe Rizzo](https://github.com/giusepperizzo)
+* Antonio Vetro'
+* Luca Ardito
+* Marco Torchiano.
 
 History
 =======

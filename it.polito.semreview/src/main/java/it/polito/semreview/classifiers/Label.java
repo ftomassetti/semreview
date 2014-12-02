@@ -1,11 +1,11 @@
 /*
  * SemReview - A tool to perform semi-automatically systematic reviews using Linked Data. 
  * 
- * Authors: 
- *     Luca Ardito	        <luca.ardito@polito.it>
- *     Giuseppe Rizzo       <giuseppe.rizzo@polito.it>
- *     Federico Tomassetti  <federico.tomassetti@polito.it>
- *     Antonio Vetr�        <antonio.vetro@polito.it>
+ * Authors:
+ *     Luca Ardito
+ *     Giuseppe Rizzo
+ *     Federico Tomassetti
+ *     Antonio Vetro'
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

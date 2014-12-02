@@ -6,7 +6,7 @@ package it.polito.softeng.common;
  * that are not intended to be disabled at runtime
  * (like the facility inserted in the language).
  * 
- * @author Federico Tomassetti <federico.tomassetti@polito.it>
+ * @author Federico Tomassetti
  */
 public final class Assert {
 	
