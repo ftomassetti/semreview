@@ -7,7 +7,6 @@ How to build
 ============
 
 ```
-cd it.polito.semreview
 mvn install
 ```
 
