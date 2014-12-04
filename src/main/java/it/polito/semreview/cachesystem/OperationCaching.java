@@ -6,14 +6,25 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 
+/**
+ * Utils class to execute operation which can be cached
+ */
 public class OperationCaching {
-	
+
+    /**
+     * Prevent instantiation.
+     */
 	private OperationCaching(){
 		
 	}
 
-	public static <I extends Serializable, J extends I> I get(Operation<I> operation, File file, Class<J> clazz) throws Exception{
-		if (file.exists()){
+    /**
+     * If the given file exist the value is loaded from that file and return,
+     * otherwise the operation is executed and the result saved to file.
+     * @throws Exception any kind of potential error can be thrown by the Operation.
+     */
+	public static <I extends Serializable, J extends I> I get(Operation<I> operation, File file, Class<J> clazz) throws Exception {
+		if (file.exists()) {
 			return SerializationStorage.load(file, clazz);
 		} else {
 			I result = operation.execute();
