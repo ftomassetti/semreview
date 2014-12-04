@@ -2,10 +2,12 @@ package it.polito.softeng.common;
 
 public final class StringUtils {
 
+    /**
+     * Prevent instantiation.
+     */
 	private StringUtils() {
 
 	}
-
 
 	public static String removePostfix(String s, String postfix) {
 		if (!s.endsWith(postfix)) {
