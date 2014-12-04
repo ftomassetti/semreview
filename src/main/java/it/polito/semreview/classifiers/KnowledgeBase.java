@@ -25,32 +25,44 @@ package it.polito.semreview.classifiers;
 import java.util.Hashtable;
 
 /**
+ * A Model containing a set of labels and the corresponding instances.
+ *
  * @author Luca Ardito
  * @author Giuseppe Rizzo
  * @author Federico Tomassetti
  * @author Antonio Vetro'
  */
 public class KnowledgeBase {
-	private Hashtable<String, Label> model;
-	private int totalWords = 0;
+	private final Hashtable<String, Label> model;
 
 	public Hashtable<String, Label> getModel() {
 		return this.model;
 	}
 
+    /**
+     * Number of words recorded in the knowledge base. In general each
+     * instance recorded through {@link train} can be composed by multiple
+     * words
+     */
 	public int getTotalWords() {
-		return this.totalWords;
+		int totalWords = 0;
+        for (Label label : model.values()) {
+            totalWords += label.getTotalWords();
+        }
+        return totalWords;
 	}
 
-	public void train(String labelname, String instance) {
-		Label label = model.get(labelname);
+    /**
+     * Associate the given instance to the given label.
+     */
+	public void train(String labelName, String instance) {
+		Label label = model.get(labelName);
 		if (label == null) {
-			label = new Label(labelname);
-			model.put(labelname, label);
+			label = new Label(labelName);
+			model.put(labelName, label);
 		}
 
 		label.addInstance(instance);
-		totalWords += instance.split(" ").length;
 	}
 
 	public KnowledgeBase() {
