@@ -17,17 +17,19 @@ public class NaiveBayes implements Classifier {
 	public static Hashtable<String, Double> estimate(String sample,
 			KnowledgeBase kb) throws ClassificationException {
 		int numberofset = kb.getModel().size();
-		// System.out.println(numberofset);
 		return (numberofset >= 2) ? binary(sample, kb) : multiclass(sample, kb);
 	}
 
-	/******************
-	 * NAIVE BAYES FORMULA ************************ * * P(ci) * PROD{ P(wj|ci) }
-	 * * P(ci|D) = ---------------------------------- * P(D) * * Likelihood a
+	/**
+	 * NAIVE BAYES FORMULA
+     * <p>
+     * P(ci) * PROD{ P(wj|ci) }
+	 * P(ci|D) = P(D) * Likelihood a
 	 * prior = Likelihood's class i * production on * each word given class i
-	 * (occurrencies'number of word j in * a given class i) divided by
-	 * probability of document (we * can interpret this how a mail's likelihood
-	 * into dataset) * * *
+	 * (occurrencies = number of word j in a given class i) divided by
+	 * probability of document (we can interpret this how a mail's likelihood
+	 * into dataset)
+     * </p>
 	 ***************************************************************/
 	private static Hashtable<String, Double> multiclass(String sample,
 			KnowledgeBase kb) {
@@ -129,10 +131,8 @@ public class NaiveBayes implements Classifier {
 	private String categoryName;
 
 	@Override
-	public float getAffinity(KnowledgeBase knowledgeBase, String enrichedText) {
-
-		double d = multiclass(enrichedText, knowledgeBase).get(categoryName);
+	public float getAffinity(KnowledgeBase knowledgeBase, String document) {
+		double d = multiclass(document, knowledgeBase).get(categoryName);
 		return (float) d;
-
 	}
 }
