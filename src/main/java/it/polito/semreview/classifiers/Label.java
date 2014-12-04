@@ -24,21 +24,22 @@ package it.polito.semreview.classifiers;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 
 /**
- * 
+ * A group of elements with an associated name.
+ *
  * @author Luca Ardito
  * @author Giuseppe Rizzo
  * @author Federico Tomassetti
  * @author Antonio Vetro'
- * 
- * TODO document
  */
 public class Label {
-	private String name;
+	private final String name;
 	private int totalWords;
-	private ArrayList<String> instances;
-	private Hashtable<String, Integer> dictionary;
+	private final List<String> instances;
+	private final Map<String, Integer> dictionary;
 
 	public String getLabelName() {
 		return this.name;
@@ -48,7 +49,7 @@ public class Label {
 		return this.totalWords;
 	}
 
-	public Hashtable<String, Integer> getDictionary() {
+	public Map<String, Integer> getDictionary() {
 		return this.dictionary;
 	}
 
@@ -59,10 +60,9 @@ public class Label {
 		// insert into dictionary (the word is the atomic value)
 		String[] words = instance.split(" ");
 		for (String word : words) {
-			if (!dictionary.containsKey(word))
-				dictionary.put(word, 1);
-
-			else {
+			if (!dictionary.containsKey(word)) {
+                dictionary.put(word, 1);
+            } else {
 				Integer previous = dictionary.get(word);
 				dictionary.put(word, new Integer(previous + 1));
 			}
