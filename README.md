@@ -1,6 +1,8 @@
 semreview
 =========
 
+[![Build Status](https://travis-ci.org/ftomassetti/semreview.svg?branch=master)](https://travis-ci.org/ftomassetti/semreview)
+
 Text classification taking advantage of the Semantic Web. This is named Semreview because it was initially conceived to support Systematic Literature Reviews, using Semantic enrichment to improve text classification.
 
 How to build
