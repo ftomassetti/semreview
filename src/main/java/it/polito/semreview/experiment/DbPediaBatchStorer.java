@@ -1,9 +1,11 @@
-package it.polito.semreview.dbpedia;
+package it.polito.semreview.experiment;
 
 import it.polito.semreview.cachesystem.Operation;
 import it.polito.semreview.cachesystem.OperationCaching;
 import it.polito.semreview.dataset.paper.Paper;
 import it.polito.semreview.dataset.paper.PaperId;
+import it.polito.semreview.dbpedia.DbPediaOperation;
+import it.polito.semreview.dbpedia.UnvalidDefinitionException;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
 import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.KeyPhrasesLoadingDirStrategy;
 import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.OpenCalaisKeyPhrasesProvider;
