@@ -37,7 +37,7 @@ public abstract class PapersDirLoadingStrategy<T extends Serializable> extends O
 	protected abstract T load(PaperId paperId, File file) throws LoadingException;
 	
 	public Map<PaperId,T> getAll() throws IOException, LoadingException {
-		Map<PaperId,T> papers = new HashMap<PaperId,T>();
+		Map<PaperId,T> papers = new HashMap<>();
 		int yearsCount = 0;
 		int issuesCount = 0;
 		int papersCount = 0;
@@ -60,7 +60,7 @@ public abstract class PapersDirLoadingStrategy<T extends Serializable> extends O
 											this.journalName, year, issue,
 											title);
 									T t = load(paperId, paperFile);
-									notifyEvent(new Pair<PaperId, T>(paperId, t));
+									notifyEvent(new Pair<>(paperId, t));
 									papers.put(paperId,t);
 									papersCount++;
 								}
@@ -83,10 +83,6 @@ public abstract class PapersDirLoadingStrategy<T extends Serializable> extends O
 			}
 		}
 		logger.debug("Years: " + yearsCount + ", issues " + issuesCount+", papers "+papersCount);
-		/*
-		 * for (File textFile : FileUtils.listFile(rootDir,new
-		 * FileNameExtensionFilter("txt"), true)){ papers.add(load(textFile)); }
-		 */
 		return papers;
 	}
 
