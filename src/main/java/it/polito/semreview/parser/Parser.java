@@ -41,7 +41,7 @@ public class Parser {
 			"Absftacf", "Absfmcf", "Absmct", "Abstmcf", "Absfruct", "Abstnrct",
 			"Absfruct", "Absrrcrcr", "Abslruct", "AbMmcr", "Abstmc", "Absfmct",
 			"Abshct", "Abmw&", "Ab-t", "Abshurct", "Abs ract", "Aktruet",
-			"E€€", "- -  - .", "Abstraci", "4bstract", "Abstruet", "Abslmcl",
+			"Abstraci", "4bstract", "Abstruet", "Abslmcl",
 			"Abslrucl", "Abstrud", "Abslmct", "Absbuct", "Abstrad", "Absh-act",
 			"Absftaet", "Ahsfracf", "Abstracr", "Absfracr" };
 

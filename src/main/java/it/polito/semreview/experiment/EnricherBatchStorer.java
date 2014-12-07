@@ -113,7 +113,7 @@ public class EnricherBatchStorer {
 		// while loading paper we enrich them
 		dataSetProvider.registerObserver(new MyEnricherObserver());
 		try {
-			dataSetProvider.getAllPapers();
+			dataSetProvider.getAllDocuments();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

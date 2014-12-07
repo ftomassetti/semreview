@@ -28,13 +28,13 @@ public class ExperimentDemo {
 	public static void main(String[] args) throws IOException, UnvalidDefinitionException {
 		checkArgs(args);
 				
-		DataSetProvider dataSetProvider = new XmlDirDataSetProvider(xmlDir);
+		DataSetProvider<Paper> dataSetProvider = new XmlDirDataSetProvider(xmlDir);
 		PaperEnricher paperEnricher = getPaperEnricher();
 		KnowledgeBase knowledgeBase = getKnowledgeBase();
 		Classifier classifier = getClassifier();
 		
 		// Stage 1: papers are loaded
-		for (Paper paper : dataSetProvider.getAllPapers()){
+		for (Paper paper : dataSetProvider.getAllDocuments()){
 			try {
 				// Stage 2: papers are enriched 
 				String enrichedText = paperEnricher.getEnrichedText(paper);

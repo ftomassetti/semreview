@@ -23,7 +23,7 @@ public class XmlDirDataSetProvider implements DataSetProvider {
 	}
 	
 	@Override
-	public List<Paper> getAllPapers() {
+	public List<Paper> getAllDocuments() {
 		List<Paper> papers = new LinkedList<Paper>();
 		for (File xmlFile : FileUtils.listFile(rootDir,new FileNameExtensionFilter("xml"), true)){
 			papers.add(load(xmlFile));

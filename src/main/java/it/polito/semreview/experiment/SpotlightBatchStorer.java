@@ -34,12 +34,12 @@ public class SpotlightBatchStorer {
 	public static void main(String[] args) {
 		String papersPath = "\\\\pittore.polito.it\\dataset\\Paper2";
 
-		DataSetProvider dataSetProvider = new TextFileDirDataSetProvider(
+		DataSetProvider<Paper> dataSetProvider = new TextFileDirDataSetProvider(
 				new File(papersPath), "TSE");
 
 		int papersCount = 0;
 		try {
-			for (Paper paper : dataSetProvider.getAllPapers()) {
+			for (Paper paper : dataSetProvider.getAllDocuments()) {
 				File kpDir = new File(kpsPath + "\\" + paper.getId().getYear()
 						+ "\\issue_" + paper.getId().getIssue());
 				if (kpDir.exists() || kpDir.mkdirs()) {

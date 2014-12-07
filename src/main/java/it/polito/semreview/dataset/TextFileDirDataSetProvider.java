@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
  * This class examine a directory and its subdirectories to find text files
  * which are loaded and Paper are created.
  */
-public class TextFileDirDataSetProvider extends ObservableImpl<Pair<PaperId,File>> implements DataSetProvider {
+public class TextFileDirDataSetProvider extends ObservableImpl<Pair<PaperId,File>> implements DataSetProvider<Paper> {
 	
 	private static Logger logger = Logger.getLogger(TextFileDirDataSetProvider.class);
 
@@ -33,7 +33,7 @@ public class TextFileDirDataSetProvider extends ObservableImpl<Pair<PaperId,File
 	}
 
 	@Override
-	public List<Paper> getAllPapers() throws IOException {
+	public List<Paper> getAllDocuments() throws IOException {
 		List<Paper> papers = new LinkedList<Paper>();
 		int yearsCount = 0;
 		int issuesCount = 0;
