@@ -5,6 +5,5 @@ import it.polito.semreview.dbpedia.InvalidDefinitionException;
 
 import java.io.IOException;
 
-public interface PaperEnricher {
-	String getEnrichedText(Paper paper) throws IOException, InvalidDefinitionException;
+public interface PaperEnricher extends DocumentEnricher<Paper> {
 }
