@@ -1,5 +1,6 @@
 package it.polito.semreview.dataset;
 
+import com.sun.istack.internal.NotNull;
 import it.polito.softeng.common.exceptions.UnknownElementException;
 
 import java.util.HashMap;
@@ -7,20 +8,21 @@ import java.util.Map;
 
 public class PaperImpl implements Paper {
 	
-	private PaperId paperId;
-	private Map<String,String> sections = new HashMap<String,String>();
+	private final PaperId paperId;
+	private final Map<String,String> sections = new HashMap<String,String>();
 	
 	public PaperImpl(PaperId paperId) {
-		super();
 		this.paperId = paperId;
 	}
+
 	@Override
 	public PaperId getId() {
 		return paperId;
 	}
+
 	@Override
 	public String collateText() {
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		
 		for (String sectionText : sections.values()){
 			buffer.append(sectionText);
@@ -28,9 +30,11 @@ public class PaperImpl implements Paper {
 		
 		return buffer.toString();
 	}
-	public void addSection(String sectionName, String sectionContent){
+
+	public void addSection(@NotNull String sectionName, @NotNull String sectionContent){
 		sections.put(sectionName, sectionContent);
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
