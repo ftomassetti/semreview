@@ -1,6 +1,5 @@
 package it.polito.semreview.dataset;
 
-import com.sun.istack.internal.NotNull;
 import it.polito.softeng.common.exceptions.UnknownElementException;
 
 import java.util.HashMap;
@@ -31,7 +30,7 @@ public class PaperImpl implements Paper {
 		return buffer.toString();
 	}
 
-	public void addSection(@NotNull String sectionName, @NotNull String sectionContent){
+	public void addSection(String sectionName, String sectionContent){
 		sections.put(sectionName, sectionContent);
 	}
 
