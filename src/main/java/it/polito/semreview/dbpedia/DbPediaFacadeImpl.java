@@ -18,8 +18,8 @@ public class DbPediaFacadeImpl implements DbPediaFacade, ResourceRetriever {
 
 	@Override
 	public String retrieveAbstractFromURI(URI expectedURI) 
-			throws IOException, UnvalidResponseException, 
-			UnvalidDefinitionException, ParserConfigurationException {
+			throws IOException, InvalidResponseException,
+            InvalidDefinitionException, ParserConfigurationException {
 		
 		DocumentParser documentParser = new DocumentParser();
 		DefinitionRetriever definitionRetriever = new DefinitionRetriever(
@@ -32,7 +32,7 @@ public class DbPediaFacadeImpl implements DbPediaFacade, ResourceRetriever {
 	@Override
 	public String retrieveAbstract(String keyphrase)
 			throws NoResourceFoundException, ParserConfigurationException,
-			IOException, UnvalidResponseException, UnvalidDefinitionException {
+			IOException, InvalidResponseException, InvalidDefinitionException {
 
 		String expectedURI = DbPediaURIRetriever
 				.getCommonlyExpectedURI(keyphrase);
@@ -78,7 +78,7 @@ public class DbPediaFacadeImpl implements DbPediaFacade, ResourceRetriever {
 
 	@Override
 	public String getDefinitionText(KeyPhrase keyPhrase) throws IOException,
-			UnvalidDefinitionException {
+            InvalidDefinitionException {
 		try {
 			return retrieveAbstract(keyPhrase.text());
 		} catch (NoResourceFoundException e) {
@@ -87,7 +87,7 @@ public class DbPediaFacadeImpl implements DbPediaFacade, ResourceRetriever {
 			throw new IOException(e);
 		} catch (IOException e) {
 			throw new IOException(e);
-		} catch (UnvalidResponseException e) {
+		} catch (InvalidResponseException e) {
 			throw new IOException(e);
 		}
 	}

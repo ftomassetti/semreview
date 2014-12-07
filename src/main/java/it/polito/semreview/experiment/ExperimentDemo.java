@@ -7,7 +7,7 @@ import it.polito.semreview.dataset.DataSetProvider;
 import it.polito.semreview.dataset.paper.Paper;
 import it.polito.semreview.dataset.paper.XmlDirDataSetProvider;
 import it.polito.semreview.dbpedia.DbPediaFacadeImpl;
-import it.polito.semreview.dbpedia.UnvalidDefinitionException;
+import it.polito.semreview.dbpedia.InvalidDefinitionException;
 import it.polito.semreview.enrichment.AllDefinitionsTextAppenderPaperEnricher;
 import it.polito.semreview.enrichment.PaperEnricher;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrasesExtractor;
@@ -25,7 +25,7 @@ public class ExperimentDemo {
 
 	private static File xmlDir;
 	
-	public static void main(String[] args) throws IOException, UnvalidDefinitionException {
+	public static void main(String[] args) throws IOException, InvalidDefinitionException {
 		checkArgs(args);
 				
 		DataSetProvider<Paper> dataSetProvider = new XmlDirDataSetProvider(xmlDir);

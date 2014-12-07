@@ -1,7 +1,7 @@
 package it.polito.semreview.enrichment;
 
 import it.polito.semreview.dataset.paper.Paper;
-import it.polito.semreview.dbpedia.UnvalidDefinitionException;
+import it.polito.semreview.dbpedia.InvalidDefinitionException;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrasesExtractor;
 import it.polito.semreview.resourcelookup.ResourceRetriever;
@@ -27,7 +27,7 @@ public abstract class AbstractSemanticPaperEnricher implements PaperEnricher {
 	}
 
 	@Override
-	public String getEnrichedText(Paper paper) throws IOException, UnvalidDefinitionException {
+	public String getEnrichedText(Paper paper) throws IOException, InvalidDefinitionException {
 		Set<Pair<String, Double>> resourceAbstracts = new HashSet<Pair<String, Double>>();
 		for (Pair<KeyPhrase, Double> keyPhrase : keyPhrasesExtractor
 				.getKeyPhrases(paper)) {

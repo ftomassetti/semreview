@@ -33,7 +33,7 @@ public class DefinitionRetriever {
 	}
 
 	public Document retrieveDefinition(String uri) throws IOException,
-			UnvalidResponseException {
+            InvalidResponseException {
 		if (!isADbPediaURI(uri))
 			throw new IllegalArgumentException("Not a DbPedia Resource URI");
 		String rawDataUri = fromResourceToRawDataUri(uri);
@@ -58,7 +58,7 @@ public class DefinitionRetriever {
 		try {
 			return documentParser.parse(responseBuffer.toString());
 		} catch (SAXException e) {
-			throw new UnvalidResponseException("Incorrect XML document", e);
+			throw new InvalidResponseException("Incorrect XML document", e);
 		}
 	}
 

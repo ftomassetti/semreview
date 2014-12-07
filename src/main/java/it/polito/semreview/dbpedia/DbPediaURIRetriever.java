@@ -37,7 +37,7 @@ public class DbPediaURIRetriever {
 	private static String NEWLINE = System.getProperty("line.separator");
 
 	private String createOpenLinkQueryDoc(String text) {
-		StringBuffer doc = new StringBuffer();
+		StringBuilder doc = new StringBuilder();
 		doc.append("<?xml version=\"1.0\"?>");
 		doc.append("<query xmlns=\"http://openlinksw.com/services/facets/1.0\" inference=\"\" same-as=\"\">");
 		doc.append("  <text>" + text + "</text>");
@@ -47,7 +47,7 @@ public class DbPediaURIRetriever {
 	}
 
 	private Document getOpenLinkResponse(String queryDoc) throws IOException,
-			UnvalidResponseException {
+            InvalidResponseException {
 		URL url = new URL(WS_URI);
 		URLConnection conn = url.openConnection();
 		logger.debug(".conn open");
@@ -73,7 +73,7 @@ public class DbPediaURIRetriever {
 		try {
 			return documentParser.parse(responseBuffer.toString());
 		} catch (SAXException e) {
-			throw new UnvalidResponseException(
+			throw new InvalidResponseException(
 					"Response is not a valid XML file", e);
 		}
 	}
@@ -87,14 +87,14 @@ public class DbPediaURIRetriever {
 	private static final String RESPONSE_DATATYPE_VALUE_ERANK = "erank";
 
 	private Pair<String, Double>[] getURIs(Document openLinkResponse)
-			throws UnvalidResponseException {
+			throws InvalidResponseException {
 		List<Pair<String, Double>> uris = new LinkedList<Pair<String, Double>>();
 		NodeList children = openLinkResponse.getChildNodes();
 		if (children.getLength() != 1)
-			throw new UnvalidResponseException("One root expected");
+			throw new InvalidResponseException("One root expected");
 		Node root = children.item(0);
 		if (!root.getNodeName().equals(RESPONSE_ROOT_NODE_NAME))
-			throw new UnvalidResponseException("Root <"
+			throw new InvalidResponseException("Root <"
 					+ RESPONSE_ROOT_NODE_NAME + "> expected");
 
 		children = root.getChildNodes();
@@ -103,14 +103,14 @@ public class DbPediaURIRetriever {
 			Node child = children.item(ni);
 			if (child.getNodeName().equals(RESPONSE_FCT_RESULT_NODE_NAME)) {
 				if (result != null) {
-					throw new UnvalidResponseException("More than one <"
+					throw new InvalidResponseException("More than one <"
 							+ RESPONSE_FCT_RESULT_NODE_NAME + "> found");
 				}
 				result = child;
 			}
 		}
 		if (result == null)
-			throw new UnvalidResponseException("No <"
+			throw new InvalidResponseException("No <"
 					+ RESPONSE_FCT_RESULT_NODE_NAME + "> found");
 
 		children = result.getChildNodes();
@@ -130,7 +130,7 @@ public class DbPediaURIRetriever {
 		return uris.toArray(new Pair[] {});
 	}
 
-	private String getUriFromRow(Node row) throws UnvalidResponseException {
+	private String getUriFromRow(Node row) throws InvalidResponseException {
 		NodeList children = row.getChildNodes();
 		String result = null;
 		for (int ni = 0; ni < children.getLength(); ni++) {
@@ -142,7 +142,7 @@ public class DbPediaURIRetriever {
 						&& datatypeAttr.getNodeValue().equals(
 								RESPONSE_DATATYPE_VALUE_URL)) {
 					if (result != null) {
-						throw new UnvalidResponseException(
+						throw new InvalidResponseException(
 								"A <"
 										+ RESPONSE_FCT_ROW_NODE_NAME
 										+ "> has more than one column with URL datatype");
@@ -153,15 +153,14 @@ public class DbPediaURIRetriever {
 			}
 		}
 		if (result == null)
-			throw new UnvalidResponseException("A <"
+			throw new InvalidResponseException("A <"
 					+ RESPONSE_FCT_ROW_NODE_NAME
 					+ "> has not a column with URL datatype");
-		// System.out.println("{"+result+"}");
 		return result;
 	}
 
 	private Double getRelevanceFromRow(Node row)
-			throws UnvalidResponseException {
+			throws InvalidResponseException {
 		NodeList children = row.getChildNodes();
 		Double result = null;
 		for (int ni = 0; ni < children.getLength(); ni++) {
@@ -173,7 +172,7 @@ public class DbPediaURIRetriever {
 						&& datatypeAttr.getNodeValue().equals(
 								RESPONSE_DATATYPE_VALUE_ERANK)) {
 					if (result != null) {
-						throw new UnvalidResponseException(
+						throw new InvalidResponseException(
 								"A <"
 										+ RESPONSE_FCT_ROW_NODE_NAME
 										+ "> has more than one column with erank datatype");
@@ -181,7 +180,7 @@ public class DbPediaURIRetriever {
 					try {
 						result = Double.parseDouble(column.getTextContent());
 					} catch (NumberFormatException e) {
-						throw new UnvalidResponseException(
+						throw new InvalidResponseException(
 								"A <"
 										+ RESPONSE_FCT_ROW_NODE_NAME
 										+ "> has a column with erank datatype which have not a numerical value");
@@ -191,15 +190,14 @@ public class DbPediaURIRetriever {
 			}
 		}
 		if (result == null)
-			throw new UnvalidResponseException("A <"
+			throw new InvalidResponseException("A <"
 					+ RESPONSE_FCT_ROW_NODE_NAME
 					+ "> has not a column with erank datatype");
-		// System.out.println("{"+result+"}");
 		return result;
 	}
 
 	public Pair<String, Double>[] retrievePossibileURIs(String text)
-			throws IOException, UnvalidResponseException {
+			throws IOException, InvalidResponseException {
 		Document openLinkResponse = getOpenLinkResponse(createOpenLinkQueryDoc(text));
 		return getURIs(openLinkResponse);
 	}

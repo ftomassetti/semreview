@@ -15,21 +15,21 @@ public interface DbPediaFacade {
      * @throws NoResourceFoundException
      * @throws ParserConfigurationException
      * @throws IOException
-     * @throws UnvalidResponseException
-     * @throws UnvalidDefinitionException
+     * @throws InvalidResponseException
+     * @throws InvalidDefinitionException
      */
 	String retrieveAbstract(String keyphrase) throws NoResourceFoundException,
 			ParserConfigurationException, IOException,
-			UnvalidResponseException, UnvalidDefinitionException;
+            InvalidResponseException, InvalidDefinitionException;
 
     /**
      * Retrieve the abstract associated to the given URI.
      * @param expectedURI
      * @return
      * @throws IOException
-     * @throws UnvalidResponseException
-     * @throws UnvalidDefinitionException
+     * @throws InvalidResponseException
+     * @throws InvalidDefinitionException
      * @throws ParserConfigurationException
      */
-	String retrieveAbstractFromURI(URI expectedURI) throws IOException, UnvalidResponseException, UnvalidDefinitionException, ParserConfigurationException;
+	String retrieveAbstractFromURI(URI expectedURI) throws IOException, InvalidResponseException, InvalidDefinitionException, ParserConfigurationException;
 }

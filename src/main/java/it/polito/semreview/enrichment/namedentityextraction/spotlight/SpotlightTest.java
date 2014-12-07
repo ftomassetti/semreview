@@ -5,8 +5,8 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import it.polito.semreview.dbpedia.DbPediaFacadeImpl;
-import it.polito.semreview.dbpedia.UnvalidDefinitionException;
-import it.polito.semreview.dbpedia.UnvalidResponseException;
+import it.polito.semreview.dbpedia.InvalidDefinitionException;
+import it.polito.semreview.dbpedia.InvalidResponseException;
 import it.polito.semreview.enrichment.namedentityextraction.NamedEntity;
 
 
@@ -48,10 +48,10 @@ public class SpotlightTest {
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			} catch (UnvalidResponseException e1) {
+			} catch (InvalidResponseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			} catch (UnvalidDefinitionException e1) {
+			} catch (InvalidDefinitionException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (ParserConfigurationException e1) {

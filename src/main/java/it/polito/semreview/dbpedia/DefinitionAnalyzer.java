@@ -21,17 +21,17 @@ final class DefinitionAnalyzer {
 	private static final String LANG_ENGLISH = "en";
 
 	public static String getAbstract(String resourceUri, Document definition)
-			throws UnvalidDefinitionException {
+			throws InvalidDefinitionException {
 		// System.out.println(" *** looking for uri "+resourceUri);
 		if (definition == null)
 			throw new IllegalArgumentException("Given definition is null");
 		NodeList children = definition.getChildNodes();
 		if (children.getLength() != 1)
-			throw new UnvalidDefinitionException(definition,
+			throw new InvalidDefinitionException(definition,
 					"One root expected");
 		Node root = children.item(0);
 		if (!root.getNodeName().equals(RDF_ROOT))
-			throw new UnvalidDefinitionException(definition, "Root <"
+			throw new InvalidDefinitionException(definition, "Root <"
 					+ RDF_ROOT + "> expected");
 
 		children = root.getChildNodes();
@@ -45,7 +45,6 @@ final class DefinitionAnalyzer {
 					NodeList descriptionChildren = child.getChildNodes();
 					for (int dci = 0; dci < descriptionChildren.getLength(); dci++) {
 						Node descriptionChild = descriptionChildren.item(dci);
-						// System.out.println(">>> "+descriptionChild);
 						if (descriptionChild.getNodeName().equals(
 								DBPEDIA_OWL_SAMEAS)) {
 							System.out.println("SAME AS "
@@ -69,7 +68,7 @@ final class DefinitionAnalyzer {
 				}
 			}
 		}
-		throw new UnvalidDefinitionException(definition,
+		throw new InvalidDefinitionException(definition,
 				"No OWL_ABSTRACT available ");
 	}
 

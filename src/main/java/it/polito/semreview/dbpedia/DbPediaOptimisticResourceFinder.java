@@ -72,10 +72,10 @@ public class DbPediaOptimisticResourceFinder {
 		} catch (IOException e) {
 			System.out.println("NO for " + keyphrase);
 			return null;
-		} catch (UnvalidDefinitionException e) {
+		} catch (InvalidDefinitionException e) {
 			System.out.println("NO UNVALID_DEF for " + keyphrase);
 			return null;
-		} catch (UnvalidResponseException e) {
+		} catch (InvalidResponseException e) {
 			System.out.println("NO UNVALID_RES for " + keyphrase);
 			return null;
 		}

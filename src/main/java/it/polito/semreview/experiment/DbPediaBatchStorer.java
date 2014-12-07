@@ -5,7 +5,7 @@ import it.polito.semreview.cachesystem.OperationCaching;
 import it.polito.semreview.dataset.paper.Paper;
 import it.polito.semreview.dataset.paper.PaperId;
 import it.polito.semreview.dbpedia.DbPediaOperation;
-import it.polito.semreview.dbpedia.UnvalidDefinitionException;
+import it.polito.semreview.dbpedia.InvalidDefinitionException;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
 import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.KeyPhrasesLoadingDirStrategy;
 import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.OpenCalaisKeyPhrasesProvider;
@@ -148,7 +148,7 @@ public class DbPediaBatchStorer {
 						e.printStackTrace();
 					} catch (StoringException e) {
 						e.printStackTrace();
-					} catch (UnvalidDefinitionException e) {
+					} catch (InvalidDefinitionException e) {
 						logger.error("Unvalid definition: "+e.getDefinition());
 					} catch (Exception e) {
 						e.printStackTrace();

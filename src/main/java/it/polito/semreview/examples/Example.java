@@ -2,8 +2,8 @@ package it.polito.semreview.examples;
 
 import it.polito.semreview.dbpedia.DbPediaFacadeImpl;
 import it.polito.semreview.dbpedia.NoResourceFoundException;
-import it.polito.semreview.dbpedia.UnvalidDefinitionException;
-import it.polito.semreview.dbpedia.UnvalidResponseException;
+import it.polito.semreview.dbpedia.InvalidDefinitionException;
+import it.polito.semreview.dbpedia.InvalidResponseException;
 
 import java.io.IOException;
 
@@ -25,7 +25,7 @@ public class Example {
 			} catch (NoResourceFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (UnvalidDefinitionException e) {
+			} catch (InvalidDefinitionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -59,7 +59,7 @@ public class Example {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (UnvalidResponseException e) {
+		} catch (InvalidResponseException e) {
 			e.printStackTrace();
 		} /*
 		 * catch (UnvalidDefinitionException e) { e.printStackTrace(); }
