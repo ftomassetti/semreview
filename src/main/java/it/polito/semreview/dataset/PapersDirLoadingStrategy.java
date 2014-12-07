@@ -20,9 +20,9 @@ public abstract class PapersDirLoadingStrategy<T extends Serializable> extends O
 	
 	private static Logger logger = Logger.getLogger(PapersDirLoadingStrategy.class);
 
-	private File rootDir;
-	private String journalName;
-	private String extension;
+	private final File rootDir;
+	private final String journalName;
+	private final String extension;
 
 	public PapersDirLoadingStrategy(File rootDir, String journalName, String extension) {
 		if (!rootDir.exists() || !rootDir.isDirectory()) {

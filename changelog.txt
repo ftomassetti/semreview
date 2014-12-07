@@ -2,6 +2,7 @@ v0.2 (done)
 ============
 
 * Adopting Guava
+* Moving to Java 1.8
 
 v0.2 (goals)
 ============

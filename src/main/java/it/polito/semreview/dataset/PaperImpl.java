@@ -1,9 +1,11 @@
 package it.polito.semreview.dataset;
 
+import com.google.common.base.Preconditions;
 import it.polito.softeng.common.exceptions.UnknownElementException;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.validation.constraints.NotNull;
 
 public class PaperImpl implements Paper {
 	
@@ -30,8 +32,19 @@ public class PaperImpl implements Paper {
 		return buffer.toString();
 	}
 
-	public void addSection(String sectionName, String sectionContent){
+    /**
+     * Add a section with the given name and content.
+     * @param sectionName should be not empty
+     * @param sectionContent
+     * @return if the section was already existing and it was overriden
+     */
+	public boolean addSection(@NotNull String sectionName, @NotNull String sectionContent){
+        Preconditions.checkNotNull(sectionName, "SectionName should be not null");
+        Preconditions.checkNotNull(sectionContent, "SectionContent should be not null");
+        Preconditions.checkArgument(!sectionName.isEmpty(), "SectionName should be not empty");
+        boolean res = sections.containsKey(sectionName);
 		sections.put(sectionName, sectionContent);
+        return res;
 	}
 
 	@Override
@@ -64,17 +77,19 @@ public class PaperImpl implements Paper {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String[] getSectionNames() {
 		return sections.keySet().toArray(new String[]{});
 	}
+
 	@Override
-	public String getSectionText(String sectionName) {
+	public String getSectionText(@NotNull String sectionName) {
+        Preconditions.checkNotNull(sectionName, "SectionName should not be null");
 		if (!sections.containsKey(sectionName)){
 			throw new UnknownElementException(sectionName);
 		}
 		return sections.get(sectionName);
 	}
-
 
 }
