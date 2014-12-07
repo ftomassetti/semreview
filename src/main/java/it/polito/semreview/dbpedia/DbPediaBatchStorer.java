@@ -2,8 +2,8 @@ package it.polito.semreview.dbpedia;
 
 import it.polito.semreview.cachesystem.Operation;
 import it.polito.semreview.cachesystem.OperationCaching;
-import it.polito.semreview.dataset.Paper;
-import it.polito.semreview.dataset.PaperId;
+import it.polito.semreview.dataset.paper.Paper;
+import it.polito.semreview.dataset.paper.PaperId;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
 import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.KeyPhrasesLoadingDirStrategy;
 import it.polito.semreview.enrichment.keyphrasesextraction.opencalais.OpenCalaisKeyPhrasesProvider;

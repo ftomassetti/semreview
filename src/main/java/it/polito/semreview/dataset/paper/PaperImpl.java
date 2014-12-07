@@ -1,4 +1,4 @@
-package it.polito.semreview.dataset;
+package it.polito.semreview.dataset.paper;
 
 import com.google.common.base.Preconditions;
 import it.polito.softeng.common.exceptions.UnknownElementException;

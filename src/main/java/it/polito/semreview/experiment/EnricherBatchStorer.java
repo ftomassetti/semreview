@@ -2,8 +2,8 @@ package it.polito.semreview.experiment;
 
 import it.polito.semreview.cachesystem.Operation;
 import it.polito.semreview.cachesystem.OperationCaching;
-import it.polito.semreview.dataset.PaperId;
-import it.polito.semreview.dataset.TextFileDirDataSetProvider;
+import it.polito.semreview.dataset.paper.PaperId;
+import it.polito.semreview.dataset.paper.TextFileDirDataSetProvider;
 import it.polito.semreview.dbpedia.DbPediaBatchStorer;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
 import it.polito.softeng.common.filesystem.FileUtils;

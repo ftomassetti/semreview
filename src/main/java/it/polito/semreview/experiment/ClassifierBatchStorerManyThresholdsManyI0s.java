@@ -1,6 +1,6 @@
 package it.polito.semreview.experiment;
 
-import it.polito.semreview.dataset.PaperId;
+import it.polito.semreview.dataset.paper.PaperId;
 import it.polito.softeng.common.filesystem.ExtensionFileNameFilter;
 import it.polito.softeng.common.filesystem.FileUtils;
 import it.polito.softeng.common.collections.Pair;

@@ -1,6 +1,6 @@
 package it.polito.semreview.enrichment;
 
-import it.polito.semreview.dataset.Paper;
+import it.polito.semreview.dataset.paper.Paper;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrasesExtractor;
 import it.polito.semreview.resourcelookup.ResourceRetriever;
 import it.polito.softeng.common.collections.Pair;

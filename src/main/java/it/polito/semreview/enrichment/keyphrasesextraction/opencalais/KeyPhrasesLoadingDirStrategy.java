@@ -1,7 +1,7 @@
 package it.polito.semreview.enrichment.keyphrasesextraction.opencalais;
 
-import it.polito.semreview.dataset.PaperId;
-import it.polito.semreview.dataset.PapersDirLoadingStrategy;
+import it.polito.semreview.dataset.paper.PaperId;
+import it.polito.semreview.dataset.paper.PapersDirLoadingStrategy;
 import it.polito.semreview.enrichment.keyphrasesextraction.KeyPhrase;
 import it.polito.softeng.common.collections.Pair;
 import it.polito.softeng.common.exceptions.LoadingException;

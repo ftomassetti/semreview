@@ -1,5 +1,6 @@
-package it.polito.semreview.dataset;
+package it.polito.semreview.dataset.paper;
 
+import it.polito.semreview.dataset.DataSetProvider;
 import it.polito.semreview.utils.filesystem.FileNameExtensionFilter;
 import it.polito.semreview.utils.filesystem.FileUtils;
 
