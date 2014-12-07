@@ -1,0 +1,4 @@
+v0.2 (goals)
+============
+
+* Generalize to support all sort of documents (not only papers)
