@@ -12,12 +12,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * To be extended by classes using keyphrases to enrich papers.
+ * To be extended by classes using KeyPhrases to enrich papers.
  */
 public abstract class AbstractSemanticPaperEnricher implements PaperEnricher {
 
-	private KeyPhrasesExtractor<Paper> keyPhrasesExtractor;
-	private ResourceRetriever resourceRetriever;
+	private final KeyPhrasesExtractor<Paper> keyPhrasesExtractor;
+	private final ResourceRetriever resourceRetriever;
 
 	public AbstractSemanticPaperEnricher(
 			KeyPhrasesExtractor<Paper> keyPhrasesExtractor,
@@ -28,10 +28,10 @@ public abstract class AbstractSemanticPaperEnricher implements PaperEnricher {
 
 	@Override
 	public String getEnrichedText(Paper paper) throws IOException, InvalidDefinitionException {
-		Set<Pair<String, Double>> resourceAbstracts = new HashSet<Pair<String, Double>>();
+		Set<Pair<String, Double>> resourceAbstracts = new HashSet<>();
 		for (Pair<KeyPhrase, Double> keyPhrase : keyPhrasesExtractor
 				.getKeyPhrases(paper)) {
-			resourceAbstracts.add(new Pair<String, Double>(resourceRetriever
+			resourceAbstracts.add(new Pair<>(resourceRetriever
 					.getDefinitionText(keyPhrase.getFirst()), keyPhrase
 					.getSecond()));
 		}

@@ -50,13 +50,10 @@ public class EnrichedToText {
 		try {
 			String text = SerializationStorage.load(inputFile, String.class);
 			FileUtils.saveFile(outputFile, text);
-		} catch (LoadingException e) {
-			System.err.println(e.getMessage());
-			System.exit(-1);
-		} catch (IOException e) {
+		} catch (LoadingException | IOException e) {
 			System.err.println(e.getMessage());
 			System.exit(-1);
 		}
-	}
+    }
 
 }

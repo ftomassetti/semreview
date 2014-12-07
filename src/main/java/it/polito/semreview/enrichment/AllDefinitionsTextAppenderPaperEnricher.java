@@ -9,7 +9,7 @@ import java.util.Set;
 
 /**
  * This PaperEnriched append all the sections of a paper and all the definitions
- * of the keyphrases not considering their importance.
+ * of the KeyPhrases not considering their importance.
  */
 public class AllDefinitionsTextAppenderPaperEnricher extends AbstractSemanticPaperEnricher {
 
@@ -21,7 +21,7 @@ public class AllDefinitionsTextAppenderPaperEnricher extends AbstractSemanticPap
 
 	@Override
 	protected String combine(Paper paper, Set<Pair<String, Double>> resourceAbstracts) {
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		
 		buffer.append(paper.collateText());
 		for (Pair<String, Double> resourceDefinition : resourceAbstracts){
